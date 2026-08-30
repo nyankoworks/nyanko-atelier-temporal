@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<rect x="210" y="150" width="380" height="250" rx="18" fill="#eef4ee" stroke="#a9c9a4" stroke-width="4"/>
+<path d="M250,210 q40,-30 90,-10 q50,20 30,70 q-20,50 -80,40 q-70,-10 -40,-100 z" fill="#a9c9a4" opacity="0.55"/>
+<path d="M430,300 q30,-40 80,-20 q40,20 20,60 q-30,40 -80,20 q-40,-20 -20,-60 z" fill="#f0c36b" opacity="0.5"/>
+<line x1="305" y1="150" x2="305" y2="400" stroke="#a9c9a4" stroke-width="1" opacity="0.35"/>
+<line x1="210" y1="212" x2="590" y2="212" stroke="#a9c9a4" stroke-width="1" opacity="0.35"/>
+<line x1="400" y1="150" x2="400" y2="400" stroke="#a9c9a4" stroke-width="1" opacity="0.35"/>
+<line x1="210" y1="275" x2="590" y2="275" stroke="#a9c9a4" stroke-width="1" opacity="0.35"/>
+<line x1="495" y1="150" x2="495" y2="400" stroke="#a9c9a4" stroke-width="1" opacity="0.35"/>
+<line x1="210" y1="337" x2="590" y2="337" stroke="#a9c9a4" stroke-width="1" opacity="0.35"/>
+<path d="M360,270 q-22,0 -22,22 q0,20 22,40 q22,-20 22,-40 q0,-22 -22,-22 z" fill="#e9a0a0"/>
+<circle cx="360" cy="292" r="8" fill="#fff"/>
+<circle cx="280" cy="60" r="16" fill="#e9a0a0"/>
+<ellipse cx="275" cy="54" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+<polygon points="264,60 254,54 254,66" fill="#e9a0a0"/>
+<polygon points="296,60 306,54 306,66" fill="#e9a0a0"/>
+<circle cx="360" cy="40" r="16" fill="#a8c4dd"/>
+<ellipse cx="355" cy="34" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+<polygon points="344,40 334,34 334,46" fill="#a8c4dd"/>
+<polygon points="376,40 386,34 386,46" fill="#a8c4dd"/>
+<circle cx="430" cy="80" r="16" fill="#a9c9a4"/>
+<ellipse cx="425" cy="74" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+<polygon points="414,80 404,74 404,86" fill="#a9c9a4"/>
+<polygon points="446,80 456,74 456,86" fill="#a9c9a4"/>
+<circle cx="500" cy="50" r="16" fill="#f0c36b"/>
+<ellipse cx="495" cy="44" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+<polygon points="484,50 474,44 474,56" fill="#f0c36b"/>
+<polygon points="516,50 526,44 526,56" fill="#f0c36b"/>
+<circle cx="560" cy="90" r="16" fill="#c9a0e0"/>
+<ellipse cx="555" cy="84" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+<polygon points="544,90 534,84 534,96" fill="#c9a0e0"/>
+<polygon points="576,90 586,84 586,96" fill="#c9a0e0"/>
+<circle cx="330" cy="110" r="16" fill="#e9a0a0"/>
+<ellipse cx="325" cy="104" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+<polygon points="314,110 304,104 304,116" fill="#e9a0a0"/>
+<polygon points="346,110 356,104 356,116" fill="#e9a0a0"/>
+<text x="400" y="470" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">ボンボンドロップ地図ゲーム</text>
+</svg>

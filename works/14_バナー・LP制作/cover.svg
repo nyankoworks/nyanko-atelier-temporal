@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<text x="120" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text><text x="690" y="130" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<rect x="240" y="150" width="320" height="210" rx="12" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<rect x="240" y="150" width="320" height="34" rx="12" fill="#f6d9d9"/>
+<circle cx="262" cy="167" r="6" fill="#e9a0a0"/>
+<circle cx="282" cy="167" r="6" fill="#f0c36b"/>
+<circle cx="302" cy="167" r="6" fill="#a9c9a4"/>
+<rect x="262" y="200" width="276" height="70" rx="8" fill="#a8c4dd"/>
+<rect x="280" y="220" width="120" height="12" rx="6" fill="#fff" opacity="0.9"/>
+<rect x="280" y="240" width="80" height="10" rx="5" fill="#fff" opacity="0.6"/>
+<rect x="470" y="235" width="52" height="22" rx="11" fill="#e9a0a0"/>
+<rect x="262" y="288" width="82" height="52" rx="6" fill="#f6d9d9"/>
+<rect x="357" y="288" width="82" height="52" rx="6" fill="#c9a0e0"/>
+<rect x="452" y="288" width="82" height="52" rx="6" fill="#f6d9d9"/>
+<text x="400" y="472" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">バナー・LP制作</text>
+</svg>

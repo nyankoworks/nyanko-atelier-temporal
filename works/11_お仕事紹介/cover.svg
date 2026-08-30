@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<text x="120" y="110" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text><text x="690" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<rect x="270" y="150" width="260" height="170" rx="12" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<rect x="285" y="165" width="230" height="120" rx="6" fill="#eef4fa"/>
+<rect x="300" y="225" width="24" height="40" rx="3" fill="#a8c4dd" opacity="0.7"/>
+<rect x="340" y="205" width="24" height="60" rx="3" fill="#a8c4dd" opacity="0.7"/>
+<rect x="380" y="213" width="24" height="52" rx="3" fill="#a8c4dd" opacity="0.7"/>
+<rect x="420" y="185" width="24" height="80" rx="3" fill="#a8c4dd" opacity="0.7"/>
+<polyline points="312,235 352,215 392,222 432,185 470,175" fill="none" stroke="#e9a0a0" stroke-width="4"/>
+<circle cx="470" cy="175" r="6" fill="#e9a0a0"/>
+<rect x="250" y="320" width="300" height="14" rx="7" fill="#f6d9d9"/>
+<text x="400" y="472" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">お仕事紹介（Webマーケ・GA4・LP・AI）</text>
+</svg>

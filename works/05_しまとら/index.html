@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>しまとら 四コマ漫画</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#e9a0a0;--ink:#4a423b;--soft:#8a7f74;--bg:#faf5ec;--card:#fffdf9;--line:#ece2d2;--blue:#a8c4dd;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Zen Maru Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8;}
+  .wrap{max-width:560px;margin:0 auto;padding:56px 24px 80px;text-align:center;}
+  .back{color:var(--accent);font-weight:700;font-size:14px;display:inline-block;margin-bottom:24px;}
+  h1{font-size:28px;margin:0 0 6px;}
+  .lead{color:var(--soft);margin:0 0 28px;}
+  .open-btn{display:inline-block;padding:16px 40px;font-size:18px;font-weight:700;color:#fff;
+    background:linear-gradient(135deg,#e9a0a0,#eec0a0);border-radius:999px;text-decoration:none;
+    box-shadow:0 8px 22px rgba(233,160,160,.5);transition:transform .15s;}
+  .open-btn:active{transform:scale(.97);}
+  .pw-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:30px;
+    box-shadow:0 4px 14px rgba(120,100,80,.08);}
+  .pw-label{font-size:13px;color:var(--soft);margin-bottom:10px;}
+  .pw-row{display:flex;gap:8px;}
+  .pw-input{flex:1;font-size:17px;font-family:monospace;padding:12px 14px;border:1.5px solid var(--line);
+    border-radius:10px;background:#fbf7f0;color:var(--ink);text-align:center;letter-spacing:1px;}
+  .copy-btn{padding:0 20px;font-size:15px;font-weight:700;color:#fff;background:var(--blue);border:none;
+    border-radius:10px;cursor:pointer;white-space:nowrap;transition:background .2s;}
+  .copy-btn.done{background:#8bbf8b;}
+  .hint{font-size:12px;color:var(--soft);margin-top:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>しまとら 四コマ漫画 🐯</h1>
+  <p class="lead">Instagramで連載中の四コマ漫画です。下のボタンから開けます（パスワードが必要です）。</p>
+
+  <a class="open-btn" href="https://claude.ai/code/artifact/4fcc9062-2c2a-448c-abc7-b59767f4e193" target="_blank" rel="noopener">📖 漫画を開く</a>
+
+  <div class="pw-box">
+    <div class="pw-label">🔑 パスワード（タップでコピー）</div>
+    <div class="pw-row">
+      <input class="pw-input" id="pw" value="torara-8wytve" readonly onclick="this.select()">
+      <button class="copy-btn" id="copyBtn" onclick="copyPw()">コピー</button>
+    </div>
+    <div class="hint">「コピー」を押すか、枠内をタップして選択できます。</div>
+  </div>
+</div>
+
+<script>
+  function copyPw(){
+    const input = document.getElementById('pw');
+    const btn = document.getElementById('copyBtn');
+    const text = input.value;
+    const done = () => { btn.textContent = "コピーしました ✓"; btn.classList.add('done');
+      setTimeout(()=>{ btn.textContent="コピー"; btn.classList.remove('done'); }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(()=>{ input.select(); document.execCommand('copy'); done(); });
+    } else {
+      input.select(); document.execCommand('copy'); done();
+    }
+  }
+</script>
+</body>
+</html>

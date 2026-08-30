@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<circle cx="140" cy="120" r="46" fill="#f0c36b"/>
+<line x1="198" y1="120" x2="220" y2="120" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="190" y1="149" x2="209" y2="160" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="169" y1="170" x2="180" y2="189" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="140" y1="178" x2="140" y2="200" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="111" y1="170" x2="100" y2="189" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="90" y1="149" x2="71" y2="160" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="82" y1="120" x2="60" y2="120" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="90" y1="91" x2="71" y2="80" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="111" y1="70" x2="100" y2="51" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="140" y1="62" x2="140" y2="40" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="169" y1="70" x2="180" y2="51" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<line x1="190" y1="91" x2="209" y2="80" stroke="#f0c36b" stroke-width="6" stroke-linecap="round"/>
+<polygon points="280,220 550,220 415,150" fill="#e9a0a0"/>
+<rect x="300" y="220" width="230" height="180" rx="8" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<path d="M415,122 l40,14 v26 q0,34 -40,52 q-40,-18 -40,-52 v-26 z" fill="#a8c4dd" opacity="0.9" stroke="#fff" stroke-width="3"/>
+<text x="415" y="168" font-size="20" text-anchor="middle" fill="#fff">❄</text>
+<rect x="328" y="254" width="56" height="48" rx="6" fill="#a8c4dd"/>
+<rect x="438" y="254" width="56" height="48" rx="6" fill="#a8c4dd"/>
+<rect x="387" y="330" width="56" height="70" rx="6" fill="#f6d9d9"/>
+<rect x="630" y="150" width="20" height="150" rx="10" fill="#fffdf9" stroke="#4a423b" stroke-width="3"/>
+<circle cx="640" cy="315" r="24" fill="#e9a0a0"/>
+<rect x="635" y="220" width="10" height="95" rx="5" fill="#e9a0a0"/>
+<line x1="652" y1="170" x2="662" y2="170" stroke="#4a423b" stroke-width="2"/>
+<line x1="652" y1="200" x2="662" y2="200" stroke="#4a423b" stroke-width="2"/>
+<line x1="652" y1="230" x2="662" y2="230" stroke="#4a423b" stroke-width="2"/>
+<line x1="652" y1="260" x2="662" y2="260" stroke="#4a423b" stroke-width="2"/>
+<text x="400" y="474" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">断熱・遮熱エコ塗料 LP</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<circle cx="640" cy="110" r="70" fill="#fbeee4"/>
+<circle cx="150" cy="120" r="46" fill="#eef4fa" opacity="0.8"/>
+<g transform="translate(120,110) scale(1.0)" fill="#ffffff" opacity="0.9"><ellipse cx="0" cy="0" rx="34" ry="18"/><ellipse cx="24" cy="6" rx="24" ry="14"/><ellipse cx="-24" cy="6" rx="24" ry="14"/></g>
+<g transform="translate(660,120) scale(1.2)" fill="#ffffff" opacity="0.9"><ellipse cx="0" cy="0" rx="34" ry="18"/><ellipse cx="24" cy="6" rx="24" ry="14"/><ellipse cx="-24" cy="6" rx="24" ry="14"/></g>
+<text x="560" y="70" font-size="20" fill="#e9a0a0">✦</text>
+<text x="230" y="80" font-size="20" fill="#e9a0a0">✦</text>
+<text x="700" y="200" font-size="20" fill="#e9a0a0">✦</text>
+<text x="90" y="220" font-size="20" fill="#e9a0a0">✦</text>
+<rect x="320" y="70" width="160" height="390" rx="8" fill="#fffdf9" stroke="#e9a0a0" stroke-width="3"/>
+<polygon points="302,70 498,70 400,24" fill="#e9a0a0"/>
+<circle cx="400" cy="18" r="6" fill="#a8c4dd"/>
+<rect x="348" y="79.9" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="79.9" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="105.5" x2="480" y2="105.5" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="115.4" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="115.4" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="140.9" x2="480" y2="140.9" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="150.8" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="150.8" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="176.4" x2="480" y2="176.4" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="186.3" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="186.3" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="211.8" x2="480" y2="211.8" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="221.7" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="221.7" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="247.3" x2="480" y2="247.3" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="257.2" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="257.2" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="282.7" x2="480" y2="282.7" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="292.7" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="292.7" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="318.2" x2="480" y2="318.2" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="328.1" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="328.1" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="353.6" x2="480" y2="353.6" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="363.6" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="363.6" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="389.1" x2="480" y2="389.1" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="399.0" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="399.0" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<line x1="320" y1="424.5" x2="480" y2="424.5" stroke="#f6d9d9" stroke-width="2"/>
+<rect x="348" y="434.5" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="418" y="434.5" width="34" height="14.9" rx="4" fill="#cfe0ef"/>
+<rect x="378" y="414" width="44" height="46" rx="6" fill="#a8c4dd"/>
+<circle cx="410" cy="438" r="3" fill="#fffdf9"/>
+<rect x="408" y="0" width="70" height="26" rx="6" fill="#fffdf9" stroke="#e9a0a0" stroke-width="2"/>
+<text x="443" y="19" font-size="15" font-family="sans-serif" font-weight="700" fill="#4a423b" text-anchor="middle">100F</text>
+<line x1="408" y1="0" x2="408" y2="40" stroke="#4a423b" stroke-width="2"/>
+<text x="400" y="490" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.7">百階建ての家 ポートフォリオ</text>
+</svg>

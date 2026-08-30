@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<text x="120" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<text x="690" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<text x="660" y="380" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<rect x="250" y="160" width="300" height="190" rx="16" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<rect x="266" y="178" width="268" height="132" rx="8" fill="#2c2622"/>
+<circle cx="400" cy="245" r="34" fill="#e9a0a0" opacity="0.95"/>
+<polygon points="389,229 389,261 418,245" fill="#fff"/>
+<rect x="270" y="322" width="260" height="10" rx="5" fill="#f6d9d9"/>
+<rect x="270" y="322" width="120" height="10" rx="5" fill="#a8c4dd"/>
+<circle cx="390" cy="327" r="8" fill="#e9a0a0"/>
+<rect x="248" y="178" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="544" y="178" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="248" y="206" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="544" y="206" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="248" y="234" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="544" y="234" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="248" y="262" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="544" y="262" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="248" y="290" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="544" y="290" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="248" y="318" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<rect x="544" y="318" width="8" height="14" rx="2" fill="#c9a0e0" opacity="0.5"/>
+<text x="400" y="472" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">動画練習</text>
+</svg>

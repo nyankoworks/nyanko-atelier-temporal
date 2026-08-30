@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>検索広告モニタリング Patrol</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#e9a0a0;--ink:#4a423b;--soft:#8a7f74;--bg:#faf5ec;--card:#fffdf9;--line:#ece2d2;--blue:#a8c4dd;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Zen Maru Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.85;}
+  .wrap{max-width:780px;margin:0 auto;padding:56px 24px 90px;}
+  .back{color:var(--accent);font-weight:700;font-size:14px;}
+  h1{font-size:30px;margin:16px 0 4px;}
+  .lead{color:var(--soft);margin:0 0 8px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 26px;}
+  .tag{font-size:12px;font-weight:700;color:#fff;background:var(--accent);border-radius:999px;padding:4px 12px;}
+  .tag.b{background:var(--blue);}
+  .callout{background:#fbeee4;border:1px solid #f3d9cf;border-radius:14px;padding:14px 18px;font-size:14px;color:#7a6a5f;margin-bottom:8px;}
+  h2{font-size:20px;margin:38px 0 12px;display:flex;align-items:center;gap:8px;}
+  p{margin:0 0 14px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px;box-shadow:0 4px 14px rgba(120,100,80,.07);}
+  .card b{color:var(--ink);}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0;}
+  .steps li{position:relative;padding:12px 16px 12px 52px;background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  pre{background:#2c2622;color:#f3ece0;padding:18px;border-radius:14px;overflow-x:auto;font-size:12.5px;line-height:1.7;}
+  pre code{font-family:"SFMono-Regular",Consolas,Menlo,monospace;}
+  .note{font-size:12.5px;color:var(--soft);margin-top:10px;}
+  .edit{background:#eef4fa;border:1px dashed #b9cfe0;border-radius:12px;padding:12px 16px;font-size:13px;color:#5a6a78;margin:8px 0 18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>検索広告モニタリング「Patrol」</h1>
+  <p class="lead">検索広告（スポンサー枠）を自動で見回り、競合の出稿状況をデータ化する自作ツール。</p>
+  <div class="tags">
+    <span class="tag">Python</span><span class="tag">Playwright</span>
+    <span class="tag b">競合分析</span><span class="tag b">業務自動化</span>
+  </div>
+  <div class="callout">💡 本当はこのページ上で実際に動かせるようにしたかったのですが、裏側でブラウザを操作する必要があり、無料の静的サイトでは動かせません。そこで「なぜ作ったか・こだわり・工程・コード」を公開します。</div>
+
+  <h2>🐾 なぜ作ったのか</h2>
+  <p><b>自社の「指名キーワード」（ブランド名での検索）に、競合他社が広告を出して見込み客を横取りしていないか</b>——これを継続的にチェックするために作りました。指名キーワードは、もっとも購入意欲の高い人がたどる大切な入口です。そこに競合が入札してくると、本来こちらに来るはずのお客様を取られ、機会損失につながります。</p>
+  <p>ただ、<b>いつ・どの競合が出稿しているかは日によって変わる</b>ため、毎回手で検索して記録するのは大変です。そこで「誰が・どんな広告文で・どれくらいの頻度で出しているか」を<b>自動で定点観測</b>し、証拠スクリーンショットと一緒に記録できるようにしました。</p>
+
+  <h2>🐾 こだわったこと</h2>
+  <div class="card"><b>① 「素の」広告を見る</b><br>シークレット（プライベート）モードで巡回し、自分の検索履歴に影響されない、フラットな状態の広告を取得します。</div>
+  <div class="card"><b>② 証拠を残す</b><br>各ページを全画面スクリーンショットで保存。「いつ・どんな広告が出ていたか」を後から確認できます。</div>
+  <div class="card"><b>③ 表面で終わらせない</b><br>広告のリンク先LPまで自動でたどり、会社名・電話番号・問い合わせフォームのURLまで抽出します。</div>
+  <div class="card"><b>④ 時系列で変化を追う</b><br>実行するたびに日時フォルダへ保存し、広告主ごとの「出稿回数」を集計。競合の力の入れ具合の変化が見えます。</div>
+  <div class="card"><b>⑤ 費用対効果を可視化</b><br>「手作業なら何分かかるか × 時給」で、削減できた人件費を自動計算して表示します。</div>
+
+  <h2>🐾 作り方（工程）</h2>
+  <ol class="steps">
+    <li><b>要件整理</b>：何を・どこから・どう残すかを決める（広告枠／証拠スクショ／CSV）</li>
+    <li><b>巡回</b>：Playwrightで検索し、複数ページを自動で移動</li>
+    <li><b>抽出</b>：広告（スポンサー枠）だけを判定し、タイトル・説明・遷移先を取得</li>
+    <li><b>深掘り</b>：遷移先LPを開いて会社名・連絡先・問い合わせURLを解析</li>
+    <li><b>保存</b>：全画面スクショ＋CSVを日時フォルダに出力</li>
+    <li><b>集計</b>：広告主ごとの出稿回数をサマリー化</li>
+    <li><b>改善</b>：実行プログラム自体もフォルダに自動バックアップして再現性を確保</li>
+  </ol>
+
+  <h2>🐾 コード（実際のスクリプト）</h2>
+  <p class="note">実際に動かしているPython + Playwrightのスクリプトです（検索キーワードは自由に入力できます。※競合名は一般的な表現に置き換えて掲載）。</p>
+  <pre><code>import asyncio
+from playwright.async_api import async_playwright
+import pandas as pd
+import datetime
+import os
+import shutil
+import re
+
+# --- 設定 ---
+KEYWORD = &quot;調べたいキーワード&quot;  # ← 自由に入力して使う
+MAX_PAGES = 3
+HOURLY_RATE = 2500
+MANUAL_TASK_MINUTES = 80  # フォームのURLまで手動で探すと非常に時間がかかるため、1時間20分に設定
+
+async def get_page_info(context, url):
+    &quot;&quot;&quot;遷移先LPから会社名、連絡先、問い合わせ関連URLを取得する&quot;&quot;&quot;
+    if not url or not url.startswith(&quot;http&quot;):
+        return &quot;N/A&quot;, &quot;N/A&quot;, &quot;N/A&quot;, url
+    try:
+        # プライベートコンテキスト内で新しいページを開く
+        temp_page = await context.new_page()
+        await temp_page.goto(url, wait_until=&quot;load&quot;, timeout=20000)
+        await temp_page.wait_for_timeout(3000)
+        
+        real_url = temp_page.url
+        content = await temp_page.content()
+        
+        # 1. 連絡先（電話番号）
+        phone_match = re.search(r&#x27;0\d{1,4}-\d{1,4}-\d{4}|0120-\d{3}-\d{3}&#x27;, content)
+        phone = phone_match.group() if phone_match else &quot;未検出&quot;
+        
+        # 2. 会社名の推測
+        title_tag = await temp_page.title()
+        co_match = re.search(r&#x27;([A-Zァ-ヶ一-龠]+株式会社|株式会社[A-Zァ-ヶ一-龠]+)&#x27;, content)
+        company = co_match.group() if co_match else title_tag.split(&#x27;｜&#x27;)[0].split(&#x27;|&#x27;)[0]
+
+        # 3. 問い合わせURLの探索（リンクテキストに「問合せ」「コンタクト」「フォーム」が含まれるものを抽出）
+        contact_url = &quot;未検出&quot;
+        links = await temp_page.query_selector_all(&quot;a&quot;)
+        for link in links:
+            text = await link.inner_text()
+            href = await link.get_attribute(&quot;href&quot;)
+            if href and any(x in text for x in [&quot;問合せ&quot;, &quot;お問い合わせ&quot;, &quot;コンタクト&quot;, &quot;入力フォーム&quot;, &quot;相談&quot;]):
+                # 相対パスを絶対パスに変換
+                if href.startswith(&quot;/&quot;):
+                    from urllib.parse import urljoin
+                    contact_url = urljoin(real_url, href)
+                else:
+                    contact_url = href
+                break
+
+        await temp_page.close()
+        return company.strip(), phone, contact_url, real_url
+    except:
+        return &quot;取得失敗&quot;, &quot;取得失敗&quot;, &quot;取得失敗&quot;, url
+
+async def patrol():
+    timestamp = datetime.datetime.now().strftime(&quot;%Y%m%d_%H%M&quot;)
+    base_dir = f&quot;{timestamp}_{KEYWORD}&quot;
+    img_dir = os.path.join(base_dir, &quot;captures&quot;)
+    os.makedirs(img_dir, exist_ok=True)
+
+    shutil.copy(&quot;patrol.py&quot;, os.path.join(base_dir, &quot;patrol_script_backup.py&quot;))
+
+    async with async_playwright() as p:
+        # ブラウザ起動
+        browser = await p.chromium.launch(headless=False) 
+        
+        # ★シークレットモード（プライベートウィンドウ）相当のコンテキストを作成
+        context = await browser.new_context(
+            user_agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;,
+            viewport={&#x27;width&#x27;: 1280, &#x27;height&#x27;: 1024},
+            # 履歴やキャッシュを残さない設定
+            java_script_enabled=True
+        )
+        
+        page = await context.new_page()
+        results = []
+        print(f&quot;--- Yahoo!高度パトロール（プライベートモード / 問い合わせURL抽出） ---&quot;)
+        
+        await page.goto(f&quot;https://search.yahoo.co.jp/search?p={KEYWORD}&quot;, wait_until=&quot;networkidle&quot;)
+        
+        for i in range(1, MAX_PAGES + 1):
+            print(f&quot;{i}ページ目を巡回中...&quot;)
+            await page.wait_for_timeout(5000) 
+            
+            shot_path = os.path.join(img_dir, f&quot;Yahoo_p{i}.png&quot;)
+            await page.screenshot(path=shot_path, full_page=True)
+            
+            items = await page.query_selector_all(&quot;.sw-Card&quot;)
+            
+            for item in items:
+                label_el = await item.query_selector(&quot;.sw-Ad__label, .sw-Ad&quot;)
+                label_text = await label_el.inner_text() if label_el else &quot;&quot;
+                
+                # スポンサーまたは広告ラベルがあるもののみ抽出
+                if not label_text:
+                    continue
+
+                title_el = await item.query_selector(&quot;h3&quot;)
+                desc_el = await item.query_selector(&quot;.sw-Card__description, .sw-Ad__description&quot;)
+                link_el = await item.query_selector(&quot;a&quot;)
+                
+                if title_el and link_el:
+                    ad_title = await title_el.inner_text()
+                    ad_description = await desc_el.inner_text() if desc_el else &quot;（説明文なし）&quot;
+                    raw_url = await link_el.get_attribute(&quot;href&quot;)
+                    
+                    print(f&quot;  [{label_text}] 解析中: {ad_title[:15]}...&quot;)
+                    
+                    # 遷移先から高度な情報を取得
+                    company, phone, contact_url, real_url = await get_page_info(context, raw_url)
+                    
+                    results.append({
+                        &quot;取得日時&quot;: timestamp,
+                        &quot;ページ&quot;: i,
+                        &quot;スポンサー/広告表示&quot;: label_text,
+                        &quot;広告タイトル&quot;: ad_title,
+                        &quot;広告説明文&quot;: ad_description,
+                        &quot;会社名&quot;: company,
+                        &quot;連絡先電話番号&quot;: phone,
+                        &quot;問い合わせ先URL&quot;: contact_url,
+                        &quot;本物のLPリンクURL&quot;: real_url,
+                        &quot;証拠画像&quot;: shot_path
+                    })
+            
+            if i &lt; MAX_PAGES:
+                next_btn = await page.query_selector(&quot;.sw-Pagination__next, a:has-text(&#x27;次へ&#x27;)&quot;)
+                if next_btn: await next_btn.click()
+                else: break
+
+        df = pd.DataFrame(results)
+        csv_path = os.path.join(base_dir, f&quot;report_{KEYWORD}.csv&quot;)
+        df.to_csv(csv_path, index=False, encoding=&quot;utf-8-sig&quot;)
+        
+        saved_cost = (MANUAL_TASK_MINUTES / 60) * HOURLY_RATE
+        print(&quot;\n&quot; + &quot;=&quot;*40)
+        print(f&quot;【パトロール完了】&quot;)
+        print(f&quot;作成フォルダ: {base_dir}&quot;)
+        print(f&quot;本日削減できた人件費: 約 {int(saved_cost)} 円&quot;)
+        print(&quot;=&quot;*40)
+
+        await browser.close()
+
+if __name__ == &quot;__main__&quot;:
+    asyncio.run(patrol())</code></pre>
+</div>
+</body>
+</html>

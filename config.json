@@ -1,0 +1,22 @@
+{
+  "site_title": "にゃんこの時空アトリエ",
+  "site_subtitle": "nyanko-atelier-temporal",
+  "author": "しまとら",
+  "intro": "過去も、未来も、切り取るにゃ。つくったものを、できたところからどんどん置いていく実験アトリエ。",
+  "ga4_id": "",
+  "clarity_id": "",
+  "gtm_id": "",
+  "site_url": "",
+  "google_site_verification": "",
+  "socials": [
+    { "type": "instagram", "url": "https://www.instagram.com/", "label": "Instagram 1（仮）" },
+    { "type": "instagram", "url": "https://www.instagram.com/", "label": "Instagram 2（仮）" },
+    { "type": "instagram", "url": "https://www.instagram.com/", "label": "Instagram 3（仮）" },
+    { "type": "instagram", "url": "https://www.instagram.com/", "label": "Instagram 4（仮）" },
+    { "type": "instagram", "url": "https://www.instagram.com/", "label": "Instagram 5（仮）" },
+    { "type": "twitter", "url": "https://twitter.com/", "label": "Twitter / X（仮）" }
+  ],
+  "footer": "© にゃんこの時空アトリエ",
+  "accent": "#e9a0a0",
+  "newest_first": true
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<circle cx="150" cy="120" r="52" fill="#fbeee4" opacity="0.8"/>
+<circle cx="660" cy="380" r="60" fill="#eef4fa" opacity="0.7"/>
+<text x="120" y="300" font-size="22" fill="#e9a0a0" opacity="0.7">✦</text>
+<text x="690" y="120" font-size="22" fill="#e9a0a0" opacity="0.7">✦</text>
+<text x="600" y="300" font-size="22" fill="#e9a0a0" opacity="0.7">✦</text>
+<rect x="250" y="180" width="300" height="180" rx="22" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<rect x="330" y="146" width="120" height="40" rx="10" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<rect x="274" y="202" width="40" height="26" rx="6" fill="#a8c4dd"/>
+<circle cx="510" cy="166" r="10" fill="#e9a0a0"/>
+<circle cx="400" cy="278" r="58" fill="#f6d9d9" stroke="#e9a0a0" stroke-width="5"/>
+<circle cx="400" cy="278" r="40" fill="#fffdf9"/>
+<ellipse cx="400" cy="286" rx="18" ry="15" fill="#e9a0a0"/>
+<circle cx="380" cy="262" r="7" fill="#e9a0a0"/>
+<circle cx="398" cy="262" r="7" fill="#e9a0a0"/>
+<circle cx="416" cy="262" r="7" fill="#e9a0a0"/>
+<text x="400" y="470" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.7">写真ギャラリー</text>
+</svg>

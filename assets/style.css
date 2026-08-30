@@ -1,0 +1,239 @@
+/* にゃんこの時空アトリエ — note風 + 水彩にゃんこ テーマ */
+
+:root {
+  --accent: #e9a0a0;
+  --accent-soft: #f6d9d9;
+  --ink: #4a423b;
+  --ink-soft: #8a7f74;
+  --bg: #faf5ec;
+  --bg-warm: #f4ead9;
+  --card: #fffdf9;
+  --line: #ece2d2;
+  --shadow: 0 6px 22px rgba(120, 100, 80, 0.10);
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(233,160,160,0.10), transparent 42%),
+    radial-gradient(circle at 88% 8%, rgba(160,190,220,0.12), transparent 40%),
+    radial-gradient(circle at 78% 92%, rgba(210,200,150,0.10), transparent 45%);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  text-align: center;
+  padding: 62px 22px 34px;
+  position: relative;
+}
+.site-header .paw {
+  font-size: 30px;
+  display: inline-block;
+  transform: rotate(-8deg);
+  margin-bottom: 6px;
+}
+.site-title {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  margin: 4px 0 6px;
+  letter-spacing: 0.02em;
+}
+.site-subtitle {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 16px;
+  margin-bottom: 16px;
+}
+.site-intro {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+.nav-ainote {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 9px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--card);
+  border: 1.5px solid var(--accent);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.nav-ainote:hover {
+  transform: translateY(-2px);
+  background: var(--accent-soft);
+}
+
+.divider {
+  width: 78px; height: 4px; margin: 26px auto 0;
+  background: var(--accent); border-radius: 999px; opacity: 0.7;
+}
+
+/* ---------- カウンター ---------- */
+.count-line {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13px;
+  margin: 30px 0 6px;
+}
+
+/* ---------- カードグリッド ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 26px;
+  padding: 22px 0 60px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 34px rgba(120, 100, 80, 0.16);
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--bg-warm);
+  overflow: hidden;
+}
+.thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.thumb .placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 46px;
+  background: linear-gradient(135deg, #fbeee4, #f3e2ee);
+}
+
+.badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: var(--accent);
+  padding: 3px 11px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.card-body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+.card-title { font-size: 17px; font-weight: 700; margin: 0 0 6px; }
+.card-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; flex: 1; }
+.card-meta {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ---------- 空のとき ---------- */
+.empty {
+  text-align: center;
+  color: var(--ink-soft);
+  padding: 70px 20px;
+  font-size: 15px;
+}
+.empty .big { font-size: 44px; display: block; margin-bottom: 10px; }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  padding: 30px 20px 50px;
+  border-top: 1px solid var(--line);
+}
+
+.socials {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+}
+.sicon {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease;
+}
+.sicon:hover { transform: translateY(-3px); }
+.sicon.instagram { background: linear-gradient(135deg, #feda75, #d62976 55%, #962fbf); }
+.sicon.twitter, .sicon.x { background: #2c2622; }
+
+/* ---------- ライトボックス（画像作品） ---------- */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(52, 45, 38, 0.82);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 100;
+  padding: 26px;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 92vw; max-height: 88vh;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+.lightbox .close {
+  position: absolute; top: 20px; right: 26px;
+  color: #fff; font-size: 30px; cursor: pointer;
+  background: none; border: none;
+}
+.lightbox .nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  color: #fff; font-size: 40px; cursor: pointer;
+  background: none; border: none; padding: 10px 18px; user-select: none;
+}
+.lightbox .prev { left: 10px; }
+.lightbox .next { right: 10px; }
+
+@media (max-width: 560px) {
+  .grid { gap: 18px; }
+  .site-header { padding: 44px 18px 26px; }
+}

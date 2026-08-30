@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<text x="120" y="110" font-size="22" fill="#e9a0a0" opacity="0.6">✦</text>
+<text x="690" y="120" font-size="22" fill="#e9a0a0" opacity="0.6">✦</text>
+<text x="660" y="380" font-size="22" fill="#e9a0a0" opacity="0.6">✦</text>
+<ellipse cx="400" cy="260" rx="150" ry="130" fill="#fffdf9" stroke="#e6b673" stroke-width="5"/>
+<polygon points="285,155 325,155 280,110" fill="#fffdf9" stroke="#e6b673" stroke-width="5"/>
+<polygon points="292,150 312,150 288,122" fill="#f6d9d9"/>
+<polygon points="475,155 515,155 520,110" fill="#fffdf9" stroke="#e6b673" stroke-width="5"/>
+<polygon points="488,150 508,150 512,122" fill="#f6d9d9"/>
+<path d="M330,180 q-14,20 -4,44" stroke="#e6b673" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M470,180 q14,20 4,44" stroke="#e6b673" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M360,180 q-14,20 -4,44" stroke="#e6b673" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M440,180 q14,20 4,44" stroke="#e6b673" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M390,180 q-14,20 -4,44" stroke="#e6b673" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M410,180 q14,20 4,44" stroke="#e6b673" stroke-width="6" fill="none" stroke-linecap="round"/>
+<circle cx="352" cy="250" r="12" fill="#4a423b"/>
+<circle cx="448" cy="250" r="12" fill="#4a423b"/>
+<circle cx="356" cy="246" r="3.5" fill="#fff"/>
+<circle cx="452" cy="246" r="3.5" fill="#fff"/>
+<polygon points="392,280 408,280 400,290" fill="#e9a0a0"/>
+<path d="M400,290 q-14,16 -28,4 M400,290 q14,16 28,4" stroke="#4a423b" stroke-width="3" fill="none"/>
+<line x1="330" y1="274" x2="270" y2="268" stroke="#4a423b" stroke-width="2"/>
+<line x1="470" y1="274" x2="530" y2="268" stroke="#4a423b" stroke-width="2"/>
+<line x1="330" y1="288" x2="270" y2="282" stroke="#4a423b" stroke-width="2"/>
+<line x1="470" y1="288" x2="530" y2="282" stroke="#4a423b" stroke-width="2"/>
+<rect x="560" y="120" width="150" height="70" rx="16" fill="#a8c4dd"/>
+<polygon points="585,188 610,188 578,214" fill="#a8c4dd"/>
+<text x="635" y="163" font-size="22" fill="#fff" text-anchor="middle" font-family="sans-serif">4コマ</text>
+<text x="400" y="472" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">しまとら（Instagram漫画）</text>
+</svg>

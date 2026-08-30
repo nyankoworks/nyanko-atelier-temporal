@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<text x="120" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text><text x="690" y="130" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<rect x="250" y="190" width="90" height="120" rx="12" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4" transform="rotate(-6 295 250)"/>
+<text x="295" y="270" font-size="46" text-anchor="middle" fill="#e9a0a0" font-family="sans-serif" font-weight="700" transform="rotate(-6 295 250)">A</text>
+<rect x="360" y="200" width="90" height="120" rx="12" fill="#fffdf9" stroke="#a8c4dd" stroke-width="4" transform="rotate(0 405 250)"/>
+<text x="405" y="270" font-size="46" text-anchor="middle" fill="#a8c4dd" font-family="sans-serif" font-weight="700" transform="rotate(0 405 250)">1</text>
+<rect x="470" y="190" width="90" height="120" rx="12" fill="#fffdf9" stroke="#a9c9a4" stroke-width="4" transform="rotate(6 515 250)"/>
+<text x="515" y="270" font-size="46" text-anchor="middle" fill="#a9c9a4" font-family="sans-serif" font-weight="700" transform="rotate(6 515 250)">あ</text>
+<text x="400" y="472" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">子供の学習カード</text>
+</svg>

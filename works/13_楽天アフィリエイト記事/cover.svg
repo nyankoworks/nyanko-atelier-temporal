@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#f4ead9"/>
+<text x="130" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text><text x="690" y="120" font-size="20" fill="#e9a0a0" opacity="0.6">✦</text>
+<rect x="250" y="150" width="200" height="200" rx="12" fill="#fffdf9" stroke="#e9a0a0" stroke-width="4"/>
+<rect x="270" y="172" width="120" height="14" rx="7" fill="#4a423b" opacity="0.5"/>
+<rect x="270" y="200" width="160" height="10" rx="5" fill="#4a423b" opacity="0.22"/>
+<rect x="270" y="226" width="120" height="10" rx="5" fill="#4a423b" opacity="0.22"/>
+<rect x="270" y="252" width="160" height="10" rx="5" fill="#4a423b" opacity="0.22"/>
+<rect x="270" y="278" width="120" height="10" rx="5" fill="#4a423b" opacity="0.22"/>
+<rect x="470" y="220" width="110" height="110" rx="12" fill="#bf4b4b"/>
+<path d="M495,220 v-14 a20,20 0 0 1 60,0 v14" fill="none" stroke="#fff" stroke-width="5"/>
+<text x="525" y="292" font-size="40" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">R</text>
+<circle cx="470" cy="160" r="30" fill="#f0c36b"/>
+<text x="470" y="172" font-size="30" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700">8</text>
+<text x="400" y="472" font-size="18" font-family="sans-serif" fill="#4a423b" text-anchor="middle" opacity="0.75">楽天アフィリエイト記事（8記事）</text>
+</svg>

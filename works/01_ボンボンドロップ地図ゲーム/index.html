@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Bonbon Map - Archive</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/js/jsvectormap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #layout {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            width: 340px;
+            background: linear-gradient(180deg, #222, #181818);
+            border-right: 2px solid #FF0055;
+            padding: 20px;
+            text-align: left;
+            overflow-y: auto;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            position: relative;
+        }
+
+        /* Flag Area */
+        #flag-container {
+            width: 100%;
+            height: 180px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: #111;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #flag-img {
+            max-width: 90%;
+            max-height: 90%;
+            display: none;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            animation: flag-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes flag-pop {
+            0% {
+                transform: scale(0.5) rotate(-10deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Logs */
+        #log-container {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+
+        .log-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .log-item.hit {
+            background: rgba(255, 0, 85, 0.15);
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-left: 4px solid #FF0055;
+            padding-left: 15px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .log-item.visited {
+            color: #FFB6C1;
+            font-style: italic;
+            border-left: 4px solid #FFB6C1;
+        }
+
+        /* Map Area */
+        #main {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #1a1a1a;
+        }
+
+        #map {
+            width: 95%;
+            height: 80%;
+            margin: 0 auto;
+        }
+
+        /* Map Styles */
+        .jvm-region {
+            fill: #333;
+            stroke: #111;
+            stroke-width: 0.5;
+            transition: fill 0.3s;
+        }
+
+        .jvm-region:hover {
+            fill: #444;
+        }
+
+        /* Visited State (Persisted) */
+        .jvm-region.visited {
+            fill: #FF69B4 !important;
+            opacity: 0.6;
+            stroke: #FF1493 !important;
+        }
+
+        /* Active Hit Animation */
+        @keyframes bonbon-active {
+            0% {
+                fill: #FF0055;
+                filter: drop-shadow(0 0 5px #FF0055);
+            }
+
+            50% {
+                fill: #FFD700;
+                filter: drop-shadow(0 0 25px #FFD700);
+            }
+
+            100% {
+                fill: #FF0055;
+                filter: drop-shadow(0 0 5px #FF0055);
+            }
+        }
+
+        .jvm-region.active {
+            fill: #FFD700 !important;
+            opacity: 1 !important;
+            stroke: white !important;
+            stroke-width: 2px !important;
+            animation: bonbon-active 1s infinite alternate !important;
+            z-index: 1000 !important;
+        }
+
+        .jvm-tooltip {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #FF0055;
+            color: #FFD700;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
+        }
+
+        /* Button */
+        button {
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            background: linear-gradient(135deg, #FF0055, #FFD700);
+            color: white;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
+            transition: transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:disabled {
+            filter: grayscale(0.5);
+            opacity: 0.8;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Overlays */
+        .overlay-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay-screen h2 {
+            color: #FFD700;
+            font-size: 2rem;
+        }
+
+        .overlay-screen p {
+            font-size: 1.3rem;
+            color: #EEE;
+        }
+
+        .action-btn {
+            background: #333;
+            border: 2px solid #FF0055;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        @media screen and (orientation: portrait) and (max-width: 900px) {
+            #rotate-guide {
+                display: flex !important;
+            }
+
+            #layout {
+                display: none;
+            }
+        }
+
+        /* Debug Console */
+        #debug-console {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 280px;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #FF0055;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 0.75rem;
+            overflow-y: auto;
+            padding: 8px;
+            z-index: 10000;
+            pointer-events: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="rotate-guide" class="overlay-screen" style="background: #111;">
+        <h2>📱 Rotate Device</h2>
+        <p>Please use landscape mode 🍬</p>
+    </div>
+
+    <div id="layout">
+        <div id="sidebar">
+            <h2 style="color:#FFD700; margin-top:0; text-shadow:0 0 5px #FF0055;">Bonbon Log 🍭</h2>
+            <div id="flag-container">
+                <span id="flag-placeholder" style="color:#444;">No Flag Yet</span>
+                <img id="flag-img" src="" alt="Flag">
+            </div>
+            <div id="log-container">
+                <div class="log-item">Ready...</div>
+            </div>
+        </div>
+
+        <div id="main">
+            <h1
+                style="color: #FFD700; text-shadow: 0 0 20px #FF0055; font-size: 3rem; letter-spacing: 3px; margin: 10px 0;">
+                🍬 VOICE BONBON 🍬</h1>
+            <div id="map"></div>
+            <div><button id="btn">🎤 START TRAVEL</button></div>
+        </div>
+    </div>
+
+    <div id="debug-console">Debug Log Ready...</div>
+    <div id="mic-guide" class="overlay-screen">
+        <h2>⚠️ Mic Access Needed</h2>
+        <p>ブラウザの 🔒 アイコンからマイクを許可してください。</p>
+        <button class="action-btn" onclick="location.reload()">Reload</button>
+    </div>
+
+    <script>
+        // --- 1. Massive Dictionary + Capital Cities ---
+        // Format: [Code, [Keywords...], "CapitalName"]
+        const rawCountryData = [
+            // Standard Set
+            ["JP", ["日本", "にほん", "ニッポン", "japan"], "東京"],
+            ["US", ["アメリカ", "あめりか", "米国", "usa", "us", "america", "united states", "米"], "ワシントンD.C."],
+            ["GB", ["イギリス", "いぎりす", "英国", "united kingdom", "uk", "great britain"], "ロンドン"],
+            ["CN", ["中国", "ちゅうごく", "チャイナ", "china", "prc"], "北京"],
+            ["KR", ["韓国", "かんこく", "コリア", "korea", "south korea"], "ソウル"],
+            ["RU", ["ロシア", "ろしあ", "russia", "russian federation"], "モスクワ"],
+            ["FR", ["フランス", "ふらんす", "france"], "パリ"],
+            ["DE", ["ドイツ", "どいつ", "germany", "deutschland"], "ベルリン"],
+            ["IT", ["イタリア", "いたりあ", "italy"], "ローマ"],
+            ["CA", ["カナダ", "かなだ", "canada"], "オタワ"],
+            ["AU", ["オーストラリア", "おーすとらりあ", "australia"], "キャンベラ"],
+            ["AT", ["オーストリア", "おーすとりあ", "austria"], "ウィーン"],
+            ["BR", ["ブラジル", "ぶらじる", "brazil"], "ブラジリア"],
+            ["IN", ["インド", "いんど", "india"], "ニューデリー"],
+            ["ID", ["インドネシア", "いんどねしあ", "indonesia"], "ジャカルタ"],
+            ["ES", ["スペイン", "すぺいん", "spain"], "マドリード"],
+            ["PT", ["ポルトガル", "ぽるとがる", "portugal"], "リスボン"],
+            ["MX", ["メキシコ", "めきしこ", "mexico"], "メキシコシティ"],
+            ["TR", ["トルコ", "とるこ", "turkey"], "アンカラ"],
+            ["SA", ["サウジアラビア", "saudi arabia"], "リヤド"],
+            ["ZA", ["南アフリカ", "south africa", "za"], "プレトリア"],
+            ["EG", ["エジプト", "egypt"], "カイロ"],
+            ["TH", ["タイ", "たい", "thailand"], "バンコク"],
+            ["VN", ["ベトナム", "べとなむ", "vietnam"], "ハノイ"],
+            ["PH", ["フィリピン", "philippines"], "マニラ"],
+            ["MY", ["マレーシア", "malaysia"], "クアラルンプール"],
+            ["SG", ["シンガポール", "singapore"], "シンガポール"],
+            ["UA", ["ウクライナ", "ukraine"], "キエフ"],
+            ["PL", ["ポーランド", "poland"], "ワルシャワ"],
+            ["NL", ["オランダ", "netherlands"], "アムステルダム"],
+            ["BE", ["ベルギー", "belgium"], "ブリュッセル"],
+            ["CH", ["スイス", "switzerland"], "ベルン"],
+            ["SE", ["スウェーデン", "sweden"], "ストックホルム"],
+            ["AR", ["アルゼンチン", "argentina"], "ブエノスアイレス"],
+            ["CL", ["チリ", "chile"], "サンティアゴ"],
+            ["PE", ["ペルー", "peru"], "リマ"],
+            ["DO", ["ドミニカ共和国", "dominican republic"], "サントドミンゴ"],
+            ["DM", ["ドミニカ国", "dominica"], "ロゾー"],
+            ["NZ", ["ニュージーランド", "new zealand"], "ウェリントン"],
+            ["KP", ["北朝鮮", "north korea"], "平壌"],
+            ["TW", ["台湾", "taiwan"], "台北"],
+            ["IR", ["イラン", "iran"], "テヘラン"],
+            ["IQ", ["イラク", "iraq"], "バグダッド"],
+            ["IL", ["イスラエル", "israel"], "エルサレム"],
+            ["AE", ["アラブ首長国連邦", "uae"], "アブダビ"],
+            ["MN", ["モンゴル", "mongolia"], "ウランバートル"],
+
+            // --- PHASE 1 ADDITIONS ---
+            ["IS", ["アイスランド", "iceland"], "レイキャビク"],
+            ["FI", ["フィンランド", "finland"], "ヘルシンキ"],
+            ["NO", ["ノルウェー", "norway"], "オスロ"],
+            ["UZ", ["ウズベキスタン", "uzbekistan"], "タシュケント"],
+            ["GE", ["ジョージア", "グルジア", "georgia"], "トビリシ"],
+            ["AZ", ["アゼルバイジャン", "azerbaijan"], "バクー"],
+            ["MG", ["マダガスカル", "madagascar"], "アンタナナリボ"],
+            ["MA", ["モロッコ", "morocco"], "ラバト"],
+            ["ET", ["エチオピア", "ethiopia"], "アディスアベバ"],
+            ["BT", ["ブータン", "bhutan"], "ティンプー"],
+            ["NP", ["ネパール", "nepal"], "カトマンズ"],
+            ["LK", ["スリランカ", "sri lanka"], "スリ"],
+            ["FJ", ["フィジー", "fiji"], "スバ"],
+            ["KI", ["キリバス", "kiribati"], "タラワ"],
+            ["CU", ["キューバ", "cuba"], "ハバナ"],
+            ["JM", ["ジャマイカ", "jamaica"], "キングストン"],
+
+            // --- PHASE 2 ADDITIONS (The Black Regions Update) ---
+            // Europe
+            ["DK", ["デンマーク", "denmark"], "コペンハーゲン"],
+            ["HU", ["ハンガリー", "hungary"], "ブダペスト"],
+            ["RO", ["ルーマニア", "romania"], "ブカレスト"],
+            ["CZ", ["チェコ", "czechia", "czech republic"], "プラハ"],
+            ["GR", ["ギリシャ", "greece"], "アテネ"],
+
+            // Africa (Cool & Major)
+            ["KE", ["ケニア", "kenya"], "ナイロビ"],
+            ["NG", ["ナイジェリア", "nigeria"], "アブジャ"],
+            ["GH", ["ガーナ", "ghana"], "アクラ"],
+            ["TZ", ["タンザニア", "tanzania"], "ドドマ"],
+            ["ZW", ["ジンバブエ", "zimbabwe"], "ハラレ"],
+            ["SN", ["セネガル", "senegal"], "ダカール"],
+            ["CM", ["カメルーン", "cameroon"], "ヤウンデ"],
+
+            // Central Asia / Middle East (Unexpected)
+            ["KZ", ["カザフスタン", "kazakhstan"], "アスタナ"],
+            ["TM", ["トルクメニスタン", "turkmenistan"], "アシガバート"],
+            ["OM", ["オマーン", "oman"], "マスカット"],
+            ["JO", ["ヨルダン", "jordan"], "アンマン"],
+            ["QA", ["カタール", "qatar"], "ドーハ"],
+
+            // Asia / Oceania (Remote)
+            ["PG", ["パプアニューギニア", "papua new guinea"], "ポートモレスビー"],
+            ["LA", ["ラオス", "laos"], "ビエンチャン"],
+            ["MV", ["モルディブ", "maldives"], "マレ"],
+            ["PW", ["パラオ", "palau"], "マルキョク"],
+            ["TO", ["トンガ", "tonga"], "ヌクアロファ"],
+
+            // Americas (Balance)
+            ["EC", ["エクアドル", "ecuador"], "キト"],
+            ["BO", ["ボリビア", "bolivia"], "スクレ"],
+            ["UY", ["ウルグアイ", "uruguay"], "モンテビデオ"],
+            ["PY", ["パラグアイ", "paraguay"], "アスンシオン"]
+        ];
+
+        // Search List Preparation
+        let searchList = [];
+        rawCountryData.forEach(([code, keywords, capital]) => {
+            keywords.forEach(k => {
+                searchList.push({ code, keyword: k.toLowerCase(), len: k.length, capital, countryName: keywords[0] });
+            });
+        });
+        searchList.sort((a, b) => b.len - a.len);
+
+        // --- 2. Map Configuration ---
+        let map;
+        const visitedKey = "voiceBonbon_visited";
+
+        function getVisited() {
+            return JSON.parse(localStorage.getItem(visitedKey) || "[]");
+        }
+        function saveVisited(code) {
+            const list = getVisited();
+            if (!list.includes(code)) {
+                list.push(code);
+                localStorage.setItem(visitedKey, JSON.stringify(list));
+            }
+        }
+
+        window.onload = function () {
+            map = new jsVectorMap({
+                selector: '#map', map: 'world', zoomButtons: true,
+                regionStyle: { initial: { fill: '#333' } },
+                onRegionTooltipShow(event, tooltip, code) {
+                    const entry = rawCountryData.find(e => e[0] === code);
+                    const name = entry ? entry[1][0] : code;
+                    const capital = entry ? entry[2] : "";
+                    tooltip.text(`${name} ${capital ? "(" + capital + ")" : ""}`);
+                },
+                onLoaded(map) {
+                    // Apply Visited Style
+                    const visited = getVisited();
+                    visited.forEach(code => {
+                        const el = document.querySelector(`[data-code="${code}"]`);
+                        if (el) el.classList.add('visited');
+                    });
+                }
+            });
+        };
+
+        // --- 3. UI & Logic ---
+        const btn = document.getElementById('btn');
+        const logContainer = document.getElementById('log-container');
+        const debugConsole = document.getElementById('debug-console');
+        const flagImg = document.getElementById('flag-img');
+        const flagPlaceholder = document.getElementById('flag-placeholder');
+
+        function addLog(text, type = 'normal') {
+            const div = document.createElement('div');
+            div.className = `log-item ${type}`;
+            div.innerText = text;
+            logContainer.prepend(div);
+        }
+
+        function updateDebug(text) {
+            debugConsole.innerHTML = `<div>${text}</div>` + debugConsole.innerHTML.substring(0, 300);
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'ja-JP';
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        function showFlag(code) {
+            flagPlaceholder.style.display = 'none';
+            flagImg.style.display = 'block';
+            flagImg.src = `https://flagcdn.com/w320/${code.toLowerCase()}.png`;
+            // Trigger reflow for restart animation
+            flagImg.style.animation = 'none';
+            flagImg.offsetHeight; /* trigger reflow */
+            flagImg.style.animation = 'flag-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        }
+
+        function highlightCountry(code, triggerWord, countryName, capital) {
+            document.querySelectorAll('.jvm-region').forEach(el => el.classList.remove('active'));
+            const target = document.querySelector(`[data-code="${code}"]`);
+            if (target) {
+                target.classList.add('active');
+
+                // Check if already visited?
+                const visited = getVisited();
+                const isNew = !visited.includes(code);
+
+                if (isNew) {
+                    saveVisited(code);
+                    target.classList.add('visited');
+                    addLog(`✨ HIT! ${countryName} (${capital})`, 'hit');
+                    speak(`正解！${countryName}の首都は、${capital}です。`);
+                } else {
+                    addLog(`🔄 ${countryName} (既読)`, 'visited');
+                    // Also speak for visited countries
+                    speak(`${countryName}。首都は${capital}です。`);
+                }
+
+                showFlag(code);
+                updateDebug(`MATCH: ${code}`);
+
+            } else {
+                updateDebug("WARN: Map not found " + code);
+            }
+        }
+
+        // --- 4. Voice Logic ---
+        // (Same Strict Logic as before)
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRec) {
+            const recognition = new SpeechRec();
+            recognition.lang = 'ja-JP';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 1;
+
+            btn.onclick = () => {
+                recognition.start();
+                btn.innerText = "Listening... 🍬";
+                btn.disabled = true;
+            };
+
+            recognition.onresult = (event) => {
+                let transcript = "";
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                transcript = transcript.trim().toLowerCase();
+                if (!transcript) return;
+
+                for (const item of searchList) {
+                    const k = item.keyword;
+                    let matched = false;
+                    const isJapanese = k.match(/[亜-熙ぁ-んァ-ヶ]/);
+
+                    if (isJapanese) {
+                        if (transcript.includes(k)) matched = true;
+                    } else {
+                        if (k.length < 4) {
+                            if (new RegExp(`\\b${k}\\b`, 'i').test(transcript)) matched = true;
+                        } else {
+                            if (transcript.includes(k)) matched = true;
+                        }
+                    }
+
+                    if (matched) {
+                        highlightCountry(item.code, k, item.countryName, item.capital);
+                        return;
+                    }
+                }
+                updateDebug(transcript);
+            };
+
+            recognition.onerror = (e) => {
+                if (e.error === 'not-allowed') document.getElementById('mic-guide').style.display = 'flex';
+                updateDebug("ERR: " + e.error);
+            };
+
+            recognition.onend = () => {
+                if (btn.innerText.includes("Listening")) recognition.start();
+                else { btn.innerText = "🎤 START"; btn.disabled = false; }
+            };
+        }
+    </script>
+</body>
+
+</html>

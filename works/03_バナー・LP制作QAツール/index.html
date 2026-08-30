@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>バナー・LP制作QAツール</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:"Zen Maru Gothic",system-ui,sans-serif;color:#4a423b;
+       background:#faf5ec;line-height:1.85;}
+  .wrap{max-width:720px;margin:0 auto;padding:60px 24px;}
+  .back{color:#e9a0a0;font-weight:700;font-size:14px;}
+  h1{font-size:28px;margin:18px 0 6px;}
+  .lead{color:#8a7f74;margin-bottom:30px;}
+  .tool{background:#fffdf9;border:1px solid #ece2d2;border-radius:16px;
+        padding:18px 20px;margin-bottom:14px;box-shadow:0 4px 14px rgba(120,100,80,.08);}
+  .tool b{display:block;font-size:16px;margin-bottom:4px;}
+  .tool span{color:#8a7f74;font-size:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>バナー・LP制作QAツール</h1>
+  <p class="lead">制作フローの校正・チェックを自動化するために作ったPython/HTMLツール群です。</p>
+
+  <div class="tool"><b>extract_banner_text.py</b><span>バナー画像から文言を抽出</span></div>
+  <div class="tool"><b>check_banner_script.py</b><span>バナーの文言・仕様をチェック</span></div>
+  <div class="tool"><b>check_page_script.py</b><span>LPページの内容をチェック</span></div>
+  <div class="tool"><b>compare_pages.py</b><span>ページ同士の差分を比較</span></div>
+  <div class="tool"><b>check_genkou.py</b><span>原稿との突き合わせ確認</span></div>
+</div>
+</body>
+</html>
