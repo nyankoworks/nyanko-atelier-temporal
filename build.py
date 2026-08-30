@@ -173,6 +173,8 @@ def build_work(folder):
         thumb = cover or images[0]
         info["cover"] = url_path("works", name, thumb.name)
         info["images"] = [url_path("works", name, im.name) for im in images]
+        # 各作品を独立した普通のページ（専用URL）にする＝ナビが効き、GAがページビューを取れる
+        info["url"] = url_path("works", name, "index.html")
         return info
 
     if pdfs:
@@ -308,11 +310,11 @@ def card_html(w, idx):
         inner += f'<p class="card-desc">{desc}</p>'
 
     if w["type"] == "gallery":
-        meta = f'{icon} {len(w["images"])}枚を見る'
+        n = len(w["images"])
+        meta = f'{icon} ひらく' if n <= 1 else f'{icon} {n}枚を見る'
         inner += f'<div class="card-meta">{meta}</div></div>'
-        data = html.escape(json.dumps(w["images"], ensure_ascii=False), quote=True)
-        return (f'<div class="card" id="w{idx}" data-images="{data}" data-title="{title}" data-card="{title}" '
-                f'onclick="openGallery(this)">{inner}</div>')
+        return (f'<a class="card" id="w{idx}" data-card="{title}" '
+                f'href="{html.escape(w["url"])}">{inner}</a>')
 
     if w["type"] == "link":
         label = w.get("domain") or "リンクを開く"
@@ -493,6 +495,73 @@ def copy_works(works):
                 htmlfile.write_text(txt, encoding="utf-8")
             except Exception as e:
                 print(f"  ! ページ加工に失敗: {htmlfile} ({e})")
+
+
+# 自分のindex.htmlを持たない作品（画像だけ等）用の、普通のスクロールできる詳細ページ
+DETAIL_TEMPLATE = """<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{{--accent:{accent};--ink:#4a423b;--soft:#8a7f74;--bg:#faf5ec;--card:#fffdf9;--line:#ece2d2;}}
+  *{{box-sizing:border-box;}}
+  body{{margin:0;font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;
+        color:var(--ink);background:var(--bg);line-height:1.85;}}
+  .wrap{{max-width:960px;margin:0 auto;padding:24px 24px 90px;}}
+  .back{{display:inline-block;color:var(--accent);font-weight:700;font-size:14px;text-decoration:none;margin-bottom:12px;}}
+  h1{{font-size:26px;margin:6px 0 8px;}}
+  .lead{{color:var(--soft);margin:0 0 24px;white-space:pre-wrap;}}
+  .shot{{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;
+         margin-bottom:16px;box-shadow:0 4px 14px rgba(120,100,80,.08);}}
+  .shot img{{display:block;width:100%;height:auto;border-radius:10px;}}
+  .totop{{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700;
+          text-decoration:none;font-size:14px;}}
+</style>
+</head>
+<body>
+{sitenav}
+<div class="wrap">
+  <a class="back" href="../../index.html">← トップにもどる</a>
+  <h1>{title}</h1>
+  <p class="lead">{desc}</p>
+{shots}
+  <a class="totop" href="../../index.html">← トップにもどる</a>
+</div>
+</body>
+</html>
+"""
+
+
+def build_gallery_pages(works):
+    """index.htmlを持たない作品に、普通のスクロールできる詳細ページを自動生成する。
+    ＝各作品が独立URLを持ち、共通ナビが効き、GAがページビューを取れる。"""
+    for w in works:
+        if w.get("type") != "gallery":
+            continue
+        dst = OUT / "works" / w["name"] / "index.html"
+        nav = nav_html(works, "../../")
+        shots = "\n".join(
+            f'  <div class="shot"><img src="{html.escape(os.path.basename(im))}" '
+            f'alt="{html.escape(w["title"])}" loading="lazy"></div>'
+            for im in w.get("images", []))
+        txt = DETAIL_TEMPLATE.format(
+            title=html.escape(w["title"]),
+            desc=html.escape(w.get("desc", "") or ""),
+            accent=CONFIG.get("accent", "#e9a0a0"),
+            sitenav=nav,
+            shots=shots,
+        )
+        txt = inject_analytics(txt, CONFIG)
+        dst.write_text(txt, encoding="utf-8")
 
 
 # ============================================================
@@ -775,6 +844,8 @@ def main():
 
     # 作品をコピー
     copy_works(works)
+    # index.htmlを持たない作品に、普通のスクロールできる詳細ページを生成
+    build_gallery_pages(works)
 
     # カード生成
     if works:
@@ -838,7 +909,7 @@ def main():
     if site_url:
         locs = [site_url + "/"]
         for w in works:
-            if w["type"] == "page":
+            if w["type"] in ("page", "gallery"):
                 locs.append(site_url + "/" + url_path("works", w["name"]) + "/")
         sm = ['<?xml version="1.0" encoding="UTF-8"?>',
               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

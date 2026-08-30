@@ -37,7 +37,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- ヘッダー（コンパクト） ---------- */
 .site-header {
   text-align: center;
-  padding: 26px 22px 16px;
+  padding: 14px 22px 6px;
   position: relative;
 }
 .site-header .paw {
@@ -61,7 +61,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 4px 16px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .site-intro {
   max-width: 620px;
@@ -73,7 +73,7 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 16px;
+  margin-top: 10px;
   padding: 9px 20px;
   font-size: 13.5px;
   font-weight: 700;
@@ -90,7 +90,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .divider {
-  width: 78px; height: 4px; margin: 26px auto 0;
+  width: 78px; height: 4px; margin: 14px auto 0;
   background: var(--accent); border-radius: 999px; opacity: 0.7;
 }
 
@@ -99,7 +99,7 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
   color: var(--ink-soft);
   font-size: 13px;
-  margin: 30px 0 6px;
+  margin: 14px 0 4px;
 }
 
 /* ---------- カードグリッド ---------- */
@@ -107,7 +107,7 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 26px;
-  padding: 22px 0 60px;
+  padding: 12px 0 60px;
 }
 
 .card {
@@ -120,6 +120,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  scroll-margin-top: 72px;
 }
 .card:hover {
   transform: translateY(-5px);
@@ -235,5 +236,5 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 560px) {
   .grid { gap: 18px; }
-  .site-header { padding: 44px 18px 26px; }
+  .site-header { padding: 16px 18px 8px; }
 }
