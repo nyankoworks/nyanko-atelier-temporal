@@ -288,7 +288,7 @@ def inject_analytics(html_text, cfg):
     return html_text
 
 
-def card_html(w):
+def card_html(w, idx):
     badge = BADGES.get(w["type"], "")
     icon = ICONS.get(w["type"], "🐾")
     title = html.escape(w["title"])
@@ -311,23 +311,23 @@ def card_html(w):
         meta = f'{icon} {len(w["images"])}枚を見る'
         inner += f'<div class="card-meta">{meta}</div></div>'
         data = html.escape(json.dumps(w["images"], ensure_ascii=False), quote=True)
-        return (f'<div class="card" data-images="{data}" data-title="{title}" data-card="{title}" '
+        return (f'<div class="card" id="w{idx}" data-images="{data}" data-title="{title}" data-card="{title}" '
                 f'onclick="openGallery(this)">{inner}</div>')
 
     if w["type"] == "link":
         label = w.get("domain") or "リンクを開く"
         inner += f'<div class="card-meta">{icon} {html.escape(label)}</div></div>'
-        return (f'<a class="card" data-card="{title}" href="{html.escape(w["url"])}" '
+        return (f'<a class="card" id="w{idx}" data-card="{title}" href="{html.escape(w["url"])}" '
                 f'target="_blank" rel="noopener">{inner}</a>')
 
     if w["type"] == "pdf":
         inner += f'<div class="card-meta">{icon} PDFを開く</div></div>'
-        return (f'<a class="card" data-card="{title}" href="{html.escape(w["url"])}" '
+        return (f'<a class="card" id="w{idx}" data-card="{title}" href="{html.escape(w["url"])}" '
                 f'target="_blank" rel="noopener">{inner}</a>')
 
     # page
     inner += f'<div class="card-meta">{icon} ひらく</div></div>'
-    return f'<a class="card" data-card="{title}" href="{html.escape(w["url"])}">{inner}</a>'
+    return f'<a class="card" id="w{idx}" data-card="{title}" href="{html.escape(w["url"])}">{inner}</a>'
 
 
 SOCIAL_ICONS = {
@@ -376,6 +376,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <style>:root{{--accent:{accent};}}</style>
 </head>
 <body>
+{sitenav}
 <header class="site-header">
   <div class="paw">🐾</div>
   <h1 class="site-title">{title}</h1>
@@ -443,20 +444,30 @@ EMPTY_CARDS = """    <div class="empty">
     </div>"""
 
 
-BACK_BUTTON = (
-    '<a href="{root}" title="一覧に戻る" '
-    'style="position:fixed;top:14px;left:14px;z-index:99999;'
-    'display:inline-flex;align-items:center;gap:6px;padding:9px 16px;'
-    'font-family:\'Zen Maru Gothic\',system-ui,sans-serif;font-size:13px;font-weight:700;'
-    'color:#4a423b;background:rgba(255,253,249,.95);border:1.5px solid #e9a0a0;'
-    'border-radius:999px;text-decoration:none;box-shadow:0 3px 12px rgba(0,0,0,.18);">'
-    '🐾 一覧に戻る</a>'
-)
+def nav_html(works, base):
+    """全ページ共通のナビバー（🐾トップ＋全カードへのチップ）。base は index.html までの相対プレフィックス（""や"../../"）"""
+    chip = ("display:inline-block;flex:0 0 auto;font-size:12px;color:#4a423b;"
+            "background:#f4ead9;border:1px solid #ece2d2;padding:5px 11px;"
+            "border-radius:999px;text-decoration:none;")
+    chips = "".join(
+        f'<a href="{base}index.html#w{i+1}" style="{chip}">{html.escape(w["title"])}</a>'
+        for i, w in enumerate(works))
+    return (
+        '<nav class="sitenav" style="position:sticky;top:0;z-index:9000;display:flex;'
+        'align-items:center;gap:10px;background:rgba(255,253,249,.96);'
+        'border-bottom:1px solid #ece2d2;padding:8px 12px;'
+        'font-family:\'Zen Maru Gothic\',system-ui,sans-serif;">'
+        f'<a href="{base}index.html" style="flex:0 0 auto;font-weight:700;color:#fff;'
+        'background:#e9a0a0;padding:6px 14px;border-radius:999px;font-size:13px;'
+        'text-decoration:none;">🐾 トップ</a>'
+        f'<div style="display:flex;gap:7px;overflow-x:auto;white-space:nowrap;'
+        f'padding-bottom:2px;-webkit-overflow-scrolling:touch;">{chips}</div>'
+        '</nav>'
+    )
 
 
 def copy_works(works):
-    """作品フォルダを _site/works/ にコピーし、各HTMLに『共通の戻るボタン』とGA4を注入"""
-    gid = CONFIG.get("ga4_id", "")
+    """作品フォルダを _site/works/ にコピーし、各HTMLに共通ナビ＋計測タグを注入"""
     out_works = OUT / "works"
     for w in works:
         src = WORKS / w["name"]
@@ -469,15 +480,15 @@ def copy_works(works):
         for htmlfile in dst.rglob("*.html"):
             try:
                 txt = htmlfile.read_text(encoding="utf-8")
-                # 共通「一覧に戻る」ボタンを注入（重複しないように）
-                if "一覧に戻る" not in txt:
-                    root_rel = os.path.relpath(OUT / "index.html",
-                                               htmlfile.parent).replace(os.sep, "/")
-                    btn = BACK_BUTTON.format(root=html.escape(root_rel))
-                    if "</body>" in txt:
-                        txt = txt.replace("</body>", btn + "\n</body>", 1)
+                # 共通ナビを <body> 直後に注入（重複しないように）
+                if 'class="sitenav"' not in txt:
+                    rel = os.path.relpath(OUT, htmlfile.parent).replace(os.sep, "/")
+                    base = (rel + "/") if rel != "." else ""
+                    nav = nav_html(works, base)
+                    if "<body>" in txt:
+                        txt = txt.replace("<body>", "<body>\n" + nav, 1)
                     else:
-                        txt = txt + btn
+                        txt = nav + txt
                 txt = inject_analytics(txt, CONFIG)
                 htmlfile.write_text(txt, encoding="utf-8")
             except Exception as e:
@@ -767,7 +778,7 @@ def main():
 
     # カード生成
     if works:
-        cards = "\n".join(card_html(w) for w in works)
+        cards = "\n".join(card_html(w, i + 1) for i, w in enumerate(works))
         count_line = f"作品 {len(works)} 点"
     else:
         cards = EMPTY_CARDS
@@ -792,6 +803,7 @@ def main():
         count_line=count_line,
         cards=cards,
         nav=nav,
+        sitenav=nav_html(works, ""),
         socials=render_socials(CONFIG),
     )
     page = inject_analytics(page, CONFIG)

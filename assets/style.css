@@ -32,24 +32,24 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-.wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 22px; }
 
-/* ---------- ヘッダー ---------- */
+/* ---------- ヘッダー（コンパクト） ---------- */
 .site-header {
   text-align: center;
-  padding: 62px 22px 34px;
+  padding: 26px 22px 16px;
   position: relative;
 }
 .site-header .paw {
-  font-size: 30px;
+  font-size: 22px;
   display: inline-block;
   transform: rotate(-8deg);
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 .site-title {
-  font-size: clamp(28px, 5vw, 42px);
+  font-size: clamp(24px, 4.2vw, 34px);
   font-weight: 700;
-  margin: 4px 0 6px;
+  margin: 2px 0 6px;
   letter-spacing: 0.02em;
 }
 .site-subtitle {
