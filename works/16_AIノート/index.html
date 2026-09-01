@@ -26,7 +26,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="gate">
+  <div class="gate" id="gate">
     <div class="lock">🔒</div>
     <h1>AIノート（自分用）</h1>
     <p class="lead">これは自分専用のメモです。パスワードを入力してください。</p>
@@ -38,10 +38,19 @@
 </div>
 <script>
   var URL_ = "https://claude.ai/code/artifact/ec7d3bf2-cddf-4d07-b793-770a7c8d0727?org=d8be55c8-18fd-41d8-92ae-6a385356ccab";
+  function openNote(){ window.open(URL_, "_blank", "noopener"); }
   function go(){
     var v=document.getElementById('pw').value.trim();
-    if(v==="shimashima"){ window.location.href = URL_; }
-    else{ document.getElementById('err').textContent="パスワードが違います"; }
+    if(v==="shimashima"){
+      openNote();
+      document.getElementById('gate').innerHTML =
+        '<div class="lock">✅</div>'+
+        '<h1>ひらきました</h1>'+
+        '<p class="lead">AIノートを新しいタブで開きました。<br>元のタブ（このページ）はそのまま残っています。</p>'+
+        '<button onclick="openNote()">もう一度ひらく</button>';
+    } else {
+      document.getElementById('err').textContent="パスワードが違います";
+    }
   }
 </script>
 </body>
