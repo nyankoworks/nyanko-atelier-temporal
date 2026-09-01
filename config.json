@@ -17,6 +17,7 @@
     { "type": "twitter", "url": "https://twitter.com/", "label": "Twitter / X（仮）" }
   ],
   "footer": "© にゃんこの時空アトリエ",
+  "ai_note": "このサイトの画像・イラスト・漫画などのクリエイティブは、生成AIを使用して制作しています。",
   "accent": "#e9a0a0",
   "newest_first": true
 }

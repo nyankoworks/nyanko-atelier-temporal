@@ -145,6 +145,7 @@ def build_work(folder):
         "cover": None,
         "sort": (date, name),
         "staff": (folder / "staff.txt").exists(),  # staff.txt があれば「自分用」＝一番下の別セクションへ
+        "wip": (folder / "wip.txt").exists(),  # wip.txt があれば「準備中」表示（画像を出さない・リンクしない）
     }
 
     if link_txt:
@@ -301,6 +302,15 @@ def card_html(w, idx):
     title = html.escape(w["title"])
     desc = html.escape(w["desc"])
 
+    # 準備中（wip）：画像を出さず、リンクもしない
+    if w.get("wip"):
+        inner = ('<div class="thumb"><div class="placeholder wipbox">準備中</div></div>'
+                 f'<div class="card-body"><h2 class="card-title">{title}</h2>')
+        if desc:
+            inner += f'<p class="card-desc">{desc}</p>'
+        inner += '<div class="card-meta">🐾 準備中</div></div>'
+        return f'<div class="card wip" id="w{idx}" data-card="{title}">{inner}</div>'
+
     if w["cover"]:
         thumb = f'<img src="{html.escape(w["cover"])}" alt="{title}" loading="lazy">'
     else:
@@ -401,7 +411,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 {staff_section}
 </main>
 
-<footer class="site-footer">{socials}{footer}</footer>
+<footer class="site-footer">{socials}<div class="ai-note">{ai_note}</div>{footer}</footer>
 
 <div class="lightbox" id="lightbox">
   <button class="close" onclick="closeGallery()">×</button>
@@ -484,7 +494,7 @@ def copy_works(works):
             shutil.rmtree(dst)
         shutil.copytree(src, dst, ignore=shutil.ignore_patterns(
             "title.txt", "about.txt", "description.txt", "desc.txt",
-            "link.txt", "date.txt", "staff.txt"))
+            "link.txt", "date.txt", "staff.txt", "wip.txt"))
         for htmlfile in dst.rglob("*.html"):
             try:
                 txt = htmlfile.read_text(encoding="utf-8")
@@ -553,6 +563,8 @@ def build_gallery_pages(works):
     for w in works:
         if w.get("type") != "gallery":
             continue
+        if w.get("wip"):
+            continue  # 準備中は詳細ページを作らない（カードもリンクしない）
         dst = OUT / "works" / w["name"] / "index.html"
         nav = nav_html(works, "../../")
         shots = "\n".join(
@@ -902,6 +914,7 @@ def main():
         nav=nav,
         sitenav=nav_html(works, ""),
         socials=render_socials(CONFIG),
+        ai_note=html.escape(CONFIG.get("ai_note", "")),
     )
     page = inject_analytics(page, CONFIG)
 
