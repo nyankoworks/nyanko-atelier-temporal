@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>AIノート（自分用）</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#e9a0a0;--ink:#4a423b;--soft:#8a7f74;--bg:#faf5ec;--card:#fffdf9;--line:#ece2d2;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Zen Maru Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8;}
+  .wrap{max-width:960px;margin:0 auto;padding:36px 24px 80px;text-align:center;}
+  .gate{max-width:400px;margin:6vh auto;background:var(--card);border:1px solid var(--line);border-radius:18px;
+        padding:30px 26px;box-shadow:0 8px 24px rgba(120,100,80,.1);}
+  .gate .lock{font-size:34px;}
+  h1{font-size:22px;margin:8px 0 4px;}
+  .lead{color:var(--soft);font-size:14px;margin:0 0 18px;}
+  input{width:100%;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;
+        background:#fbf7f0;text-align:center;letter-spacing:1px;margin-bottom:12px;}
+  button{width:100%;font-size:16px;font-weight:700;color:#fff;background:var(--accent);border:none;
+         border-radius:12px;padding:13px;cursor:pointer;}
+  .err{color:#c0392b;font-size:13px;min-height:18px;margin-top:8px;}
+  .back{display:inline-block;margin-top:18px;color:var(--accent);font-weight:700;font-size:14px;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="gate">
+    <div class="lock">🔒</div>
+    <h1>AIノート（自分用）</h1>
+    <p class="lead">これは自分専用のメモです。パスワードを入力してください。</p>
+    <input id="pw" type="password" inputmode="text" autocomplete="off" placeholder="パスワード" onkeydown="if(event.key==='Enter')go()">
+    <button onclick="go()">ひらく</button>
+    <div class="err" id="err"></div>
+  </div>
+  <a class="back" href="../../index.html">← トップにもどる</a>
+</div>
+<script>
+  var URL_ = "https://claude.ai/code/artifact/ec7d3bf2-cddf-4d07-b793-770a7c8d0727?org=d8be55c8-18fd-41d8-92ae-6a385356ccab";
+  function go(){
+    var v=document.getElementById('pw').value.trim();
+    if(v==="shimashima"){ window.location.href = URL_; }
+    else{ document.getElementById('err').textContent="パスワードが違います"; }
+  }
+</script>
+</body>
+</html>

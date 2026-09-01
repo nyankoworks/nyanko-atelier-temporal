@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300">
   <rect width="480" height="300" fill="#faf5ec"/>
-  <rect x="60" y="70" width="360" height="150" rx="22" fill="#fffdf9" stroke="#ece2d2" stroke-width="2"/>
-  <circle cx="110" cy="120" r="16" fill="#e9a0a0"/>
-  <rect x="140" y="110" width="230" height="12" rx="6" fill="#f4ead9"/>
-  <rect x="140" y="132" width="180" height="12" rx="6" fill="#f4ead9"/>
-  <circle cx="370" cy="175" r="16" fill="#a8c4dd"/>
-  <rect x="120" y="167" width="220" height="12" rx="6" fill="#f1e7d6"/>
-  <text x="240" y="262" font-family="'Zen Maru Gothic',sans-serif" font-size="30" fill="#4a423b" text-anchor="middle">💬 AIノート</text>
+  <rect x="60" y="66" width="360" height="150" rx="22" fill="#fffdf9" stroke="#ece2d2" stroke-width="2"/>
+  <circle cx="110" cy="116" r="15" fill="#e9a0a0"/>
+  <rect x="138" y="107" width="220" height="11" rx="5" fill="#f4ead9"/>
+  <rect x="138" y="128" width="170" height="11" rx="5" fill="#f4ead9"/>
+  <circle cx="372" cy="170" r="15" fill="#a8c4dd"/>
+  <rect x="120" y="161" width="212" height="11" rx="5" fill="#f1e7d6"/>
+  <text x="240" y="262" font-family="'Zen Maru Gothic',sans-serif" font-size="27" fill="#4a423b" text-anchor="middle">🔒 AIノート（自分用）</text>
 </svg>

@@ -144,6 +144,7 @@ def build_work(folder):
         "date": date,
         "cover": None,
         "sort": (date, name),
+        "staff": (folder / "staff.txt").exists(),  # staff.txt があれば「自分用」＝一番下の別セクションへ
     }
 
     if link_txt:
@@ -273,8 +274,12 @@ def gtm_body(gid):
 
 
 def inject_analytics(html_text, cfg):
-    """GTM・GA4・Clarity をまとめて注入（GTMは<head>と<body>直後）"""
-    head = (gtm_head(cfg.get("gtm_id", ""))
+    """GTM・GA4・Clarity をまとめて注入（GTMは<head>と<body>直後）。
+    noindex=true のときは「検索に出さない」metaも全ページに入れる（テスト用サイト向け）"""
+    noindex = ('<meta name="robots" content="noindex,nofollow">\n'
+               if cfg.get("noindex") else "")
+    head = (noindex
+            + gtm_head(cfg.get("gtm_id", ""))
             + ga4_snippet(cfg.get("ga4_id", ""))
             + clarity_snippet(cfg.get("clarity_id", "")))
     if head:
@@ -393,6 +398,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <section class="grid">
 {cards}
   </section>
+{staff_section}
 </main>
 
 <footer class="site-footer">{socials}{footer}</footer>
@@ -453,7 +459,7 @@ def nav_html(works, base):
             "border-radius:999px;text-decoration:none;")
     chips = "".join(
         f'<a href="{base}index.html#w{i+1}" style="{chip}">{html.escape(w["title"])}</a>'
-        for i, w in enumerate(works))
+        for i, w in enumerate(works) if not w.get("staff"))
     return (
         '<nav class="sitenav" style="position:sticky;top:0;z-index:9000;display:flex;'
         'align-items:center;gap:10px;background:rgba(255,253,249,.96);'
@@ -478,7 +484,7 @@ def copy_works(works):
             shutil.rmtree(dst)
         shutil.copytree(src, dst, ignore=shutil.ignore_patterns(
             "title.txt", "about.txt", "description.txt", "desc.txt",
-            "link.txt", "date.txt"))
+            "link.txt", "date.txt", "staff.txt"))
         for htmlfile in dst.rglob("*.html"):
             try:
                 txt = htmlfile.read_text(encoding="utf-8")
@@ -833,6 +839,9 @@ def main():
     else:
         works.sort(key=lambda w: natural_key(w["sort"][1]))
 
+    # 「自分用」(staff.txt付き)は、並び順に関わらず常に一番下へ
+    works = [w for w in works if not w.get("staff")] + [w for w in works if w.get("staff")]
+
     # 出力フォルダを作り直す
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -847,13 +856,29 @@ def main():
     # index.htmlを持たない作品に、普通のスクロールできる詳細ページを生成
     build_gallery_pages(works)
 
-    # カード生成
+    # カード生成（自分用=staffは本体グリッドから外し、下の別セクションへ）
+    main_works = [w for w in works if not w.get("staff")]
+    staff_works = [w for w in works if w.get("staff")]
     if works:
-        cards = "\n".join(card_html(w, i + 1) for i, w in enumerate(works))
-        count_line = f"作品 {len(works)} 点"
+        cards = "\n".join(card_html(w, i + 1) for i, w in enumerate(works) if not w.get("staff"))
+        count_line = f"作品 {len(main_works)} 点"
     else:
         cards = EMPTY_CARDS
         count_line = ""
+
+    # 自分用（スタッフ用）セクション＝一番下
+    if staff_works:
+        staff_cards = "\n".join(card_html(w, i + 1) for i, w in enumerate(works) if w.get("staff"))
+        staff_section = (
+            '<section class="staff-area">\n'
+            '  <div class="staff-divider"></div>\n'
+            '  <h2 class="staff-h">🔧 自分用（スタッフ用）</h2>\n'
+            '  <p class="staff-note">自分の作業用ツールです。中身は本人だけが編集できます。</p>\n'
+            '  <section class="grid">\n' + staff_cards + '\n  </section>\n'
+            '</section>'
+        )
+    else:
+        staff_section = ""
 
     # AIノートへのリンクは「ローカル（自分のPC）で見るときだけ」表示。
     # GitHub Actions（公開ビルド）では出さない＝公開サイトには非公開ページのリンクを出さない。
@@ -873,6 +898,7 @@ def main():
         footer=html.escape(CONFIG["footer"]),
         count_line=count_line,
         cards=cards,
+        staff_section=staff_section,
         nav=nav,
         sitenav=nav_html(works, ""),
         socials=render_socials(CONFIG),
@@ -901,12 +927,16 @@ def main():
 
     # ---- SEO / AIO 用ファイル ----
     site_url = (CONFIG.get("site_url", "") or "").rstrip("/")
-    robots = "User-agent: *\nAllow: /\n"
-    if site_url:
-        robots += f"Sitemap: {site_url}/sitemap.xml\n"
+    if CONFIG.get("noindex"):
+        # テスト用サイト：検索エンジンに一切拾わせない
+        robots = "User-agent: *\nDisallow: /\n"
+    else:
+        robots = "User-agent: *\nAllow: /\n"
+        if site_url:
+            robots += f"Sitemap: {site_url}/sitemap.xml\n"
     (OUT / "robots.txt").write_text(robots, encoding="utf-8")
 
-    if site_url:
+    if site_url and not CONFIG.get("noindex"):
         locs = [site_url + "/"]
         for w in works:
             if w["type"] in ("page", "gallery"):
