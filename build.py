@@ -302,14 +302,19 @@ def card_html(w, idx):
     title = html.escape(w["title"])
     desc = html.escape(w["desc"])
 
-    # 準備中（wip）：画像を出さず、リンクもしない
+    # 準備中（wip）：画像はそのまま表示し、アイコン欄に小さく「準備中」バッジ。彩度を落として区別。クリック可
     if w.get("wip"):
-        inner = ('<div class="thumb"><div class="placeholder wipbox">準備中</div></div>'
+        if w["cover"]:
+            thumb_inner = f'<img src="{html.escape(w["cover"])}" alt="{title}" loading="lazy">'
+        else:
+            thumb_inner = f'<div class="placeholder">{icon}</div>'
+        inner = (f'<div class="thumb"><span class="wip-badge">準備中</span>{thumb_inner}</div>'
                  f'<div class="card-body"><h2 class="card-title">{title}</h2>')
         if desc:
             inner += f'<p class="card-desc">{desc}</p>'
-        inner += '<div class="card-meta">🐾 準備中</div></div>'
-        return f'<div class="card wip" id="w{idx}" data-card="{title}">{inner}</div>'
+        inner += '<div class="card-meta">準備中 →</div></div>'
+        url = w.get("url") or url_path("works", w["name"], "index.html")
+        return f'<a class="card wip" id="w{idx}" data-card="{title}" href="{html.escape(url)}">{inner}</a>'
 
     if w["cover"]:
         thumb = f'<img src="{html.escape(w["cover"])}" alt="{title}" loading="lazy">'
@@ -464,19 +469,19 @@ EMPTY_CARDS = """    <div class="empty">
 
 def nav_html(works, base):
     """全ページ共通のナビバー（🐾トップ＋全カードへのチップ）。base は index.html までの相対プレフィックス（""や"../../"）"""
-    chip = ("display:inline-block;flex:0 0 auto;font-size:12px;color:#4a423b;"
-            "background:#f4ead9;border:1px solid #ece2d2;padding:5px 11px;"
+    chip = ("display:inline-block;flex:0 0 auto;font-size:12px;color:#14181f;"
+            "background:#eef2f7;border:1px solid #e3e7ec;padding:5px 11px;"
             "border-radius:999px;text-decoration:none;")
     chips = "".join(
         f'<a href="{base}index.html#w{i+1}" style="{chip}">{html.escape(w["title"])}</a>'
         for i, w in enumerate(works) if not w.get("staff"))
     return (
         '<nav class="sitenav" style="position:sticky;top:0;z-index:9000;display:flex;'
-        'align-items:center;gap:10px;background:rgba(255,253,249,.96);'
-        'border-bottom:1px solid #ece2d2;padding:8px 12px;'
+        'align-items:center;gap:10px;background:rgba(255,255,255,.97);'
+        'border-bottom:1px solid #e3e7ec;padding:8px 12px;'
         'font-family:\'Zen Maru Gothic\',system-ui,sans-serif;">'
         f'<a href="{base}index.html" style="flex:0 0 auto;font-weight:700;color:#fff;'
-        'background:#e9a0a0;padding:6px 14px;border-radius:999px;font-size:13px;'
+        'background:#2563eb;padding:6px 14px;border-radius:999px;font-size:13px;'
         'text-decoration:none;">🐾 トップ</a>'
         f'<div style="display:flex;gap:7px;overflow-x:auto;white-space:nowrap;'
         f'padding-bottom:2px;-webkit-overflow-scrolling:touch;">{chips}</div>'
@@ -557,14 +562,59 @@ DETAIL_TEMPLATE = """<!DOCTYPE html>
 """
 
 
+WIP_TEMPLATE = """<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}（準備中）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{{--accent:{accent};--ink:#4a423b;--soft:#8a7f74;--bg:#faf5ec;--line:#ece2d2;}}
+  *{{box-sizing:border-box;}}
+  body{{margin:0;font-family:"Zen Maru Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.9;}}
+  .wrap{{max-width:640px;margin:0 auto;padding:70px 24px 90px;text-align:center;}}
+  .paw{{font-size:46px;}}
+  h1{{font-size:24px;margin:14px 0 10px;}}
+  .msg{{color:var(--soft);font-size:15px;margin:0 0 30px;}}
+  .badge{{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:13px;
+          padding:5px 16px;border-radius:999px;margin-bottom:6px;}}
+  .back{{display:inline-block;color:var(--accent);font-weight:700;text-decoration:none;font-size:15px;}}
+</style>
+</head>
+<body>
+{sitenav}
+<div class="wrap">
+  <div class="paw">🐾</div>
+  <div class="badge">準備中</div>
+  <h1>{title}</h1>
+  <p class="msg">このページは準備中です。<br>できあがったら、ここに載せていきます。少々お待ちください🐱</p>
+  <a class="back" href="../../index.html">← トップにもどる</a>
+</div>
+</body>
+</html>
+"""
+
+
 def build_gallery_pages(works):
     """index.htmlを持たない作品に、普通のスクロールできる詳細ページを自動生成する。
     ＝各作品が独立URLを持ち、共通ナビが効き、GAがページビューを取れる。"""
     for w in works:
+        # 準備中：どのタイプでも「準備中です」ページを生成（クリックで飛べる）
+        if w.get("wip"):
+            dst = OUT / "works" / w["name"] / "index.html"
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            txt = WIP_TEMPLATE.format(
+                title=html.escape(w["title"]),
+                accent=CONFIG.get("accent", "#e9a0a0"),
+                sitenav=nav_html(works, "../../"),
+            )
+            txt = inject_analytics(txt, CONFIG)
+            dst.write_text(txt, encoding="utf-8")
+            continue
         if w.get("type") != "gallery":
             continue
-        if w.get("wip"):
-            continue  # 準備中は詳細ページを作らない（カードもリンクしない）
         dst = OUT / "works" / w["name"] / "index.html"
         nav = nav_html(works, "../../")
         shots = "\n".join(
@@ -851,8 +901,11 @@ def main():
     else:
         works.sort(key=lambda w: natural_key(w["sort"][1]))
 
-    # 「自分用」(staff.txt付き)は、並び順に関わらず常に一番下へ
-    works = [w for w in works if not w.get("staff")] + [w for w in works if w.get("staff")]
+    # 並び順：①中身あり → ②準備中(wip) → ③自分用(staff)。各グループ内は上の並び（新しい順）を維持
+    _normal = [w for w in works if not w.get("staff") and not w.get("wip")]
+    _wip    = [w for w in works if not w.get("staff") and w.get("wip")]
+    _staff  = [w for w in works if w.get("staff")]
+    works = _normal + _wip + _staff
 
     # 出力フォルダを作り直す
     if OUT.exists():
