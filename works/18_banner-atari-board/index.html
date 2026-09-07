@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{color-scheme:light}
+  html,body{margin:0;padding:0}
+  body{font:14px -apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif;background:#FBF6F7;color:#2E2329}
+  img{max-width:100%}
+  [hidden]:not([hidden="until-found"]){display:none!important}
+</style>
+</head>
+<body>
+<nav class="sitenav" hidden aria-hidden="true"></nav>
 <title>バナーアタリボード</title>
 <meta name="description" content="型×配色×フォントを一気に並べて当たりを探す、バナーのアタリ出しボード">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2640,3 +2655,6 @@ document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('modal').hidden)closeModal();});
 renderControls(); renderColorInputs(); renderGrid(); applyStyle(); renderTextPanel();
 </script>
+
+</body>
+</html>
