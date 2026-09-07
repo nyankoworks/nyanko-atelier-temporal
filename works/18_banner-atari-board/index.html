@@ -429,6 +429,220 @@
   .b-talk h3{margin:0;font-size:calc(4.4cqmin*var(--fs));font-weight:700}
   .b-talk .cta{align-self:flex-start}
 
+  /* ===== 追加した型（実物のバナーから起こしたもの） ===== */
+  /* 9 特典訴求型（上帯＋巨大数字） */
+  .b-price{display:grid;grid-template-rows:auto 1fr;background:var(--bg-pattern,none),var(--p-main)}
+  .b-price .ptop{padding:calc(4cqmin*var(--pad,1)) calc(4cqmin*var(--pad,1)) calc(3cqmin*var(--pad,1));
+    display:flex;flex-direction:column;align-items:center;gap:1.8cqmin;text-align:center}
+  .b-price .ptop-h{background:var(--p-ink);color:var(--p-bg);font-weight:900;font-size:calc(5.6cqmin*var(--fs));
+    padding:.3em .9em;border-radius:.3em;line-height:1.3}
+  .b-price .ptop-b{display:flex;align-items:center;gap:1.4cqmin;flex-wrap:wrap;justify-content:center;
+    font-weight:800;font-size:3.4cqmin;color:var(--p-bg)}
+  .b-price .pcode{background:var(--p-bg);color:var(--p-main);font-weight:900;padding:.2em .8em;
+    border-radius:999px;font-size:4.4cqmin;letter-spacing:.06em}
+  .b-price .pbody{background:var(--p-bg);border-radius:5cqmin 5cqmin 0 0;
+    padding:calc(4cqmin*var(--pad,1));display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:.6cqmin;text-align:center;min-height:0}
+  .b-price .plead{font-weight:900;font-size:calc(6cqmin*var(--fs));color:var(--p-ink);line-height:1.25}
+  .b-price .pbig{font-weight:900;line-height:.92;font-size:calc(19cqmin*var(--fs));color:var(--p-main);letter-spacing:-.03em}
+  .b-price .pbig small{font-size:.52em;letter-spacing:0}
+  .b-price .psub{font-weight:900;font-size:calc(7.4cqmin*var(--fs));color:var(--p-main);line-height:1.2}
+  .b-price .pnote{font-size:2.4cqmin;color:var(--p-ink);opacity:.7;line-height:1.5;margin-top:.6cqmin}
+  .b-price .pfoot{display:flex;align-items:center;gap:2.4cqmin;margin-top:1.6cqmin;flex-wrap:wrap;justify-content:center}
+  .b-price .pfoot .brand{font-size:4cqmin;color:var(--p-ink)}
+
+  /* 10 ランキング型（表彰台） */
+  .b-award{display:flex;flex-direction:column;align-items:center;gap:2cqmin;
+    padding:calc(5cqmin*var(--pad,1));text-align:center;
+    background:var(--bg-pattern,none),linear-gradient(170deg,var(--p-ph1),var(--p-bg) 55%,var(--p-ph2))}
+  .b-award .atop{display:flex;flex-direction:column;align-items:center;gap:.8cqmin}
+  .b-award .acrown{font-size:6cqmin;color:var(--p-main);line-height:1}
+  .b-award h3{margin:0;font-size:calc(6cqmin*var(--fs));font-weight:800;line-height:1.3}
+  .b-award .podium{display:grid;grid-template-columns:1fr 1.25fr 1fr;align-items:end;gap:1.4cqmin;width:100%;margin-top:.5cqmin}
+  .b-award .pod{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:.6cqmin;
+    background:color-mix(in srgb,var(--p-main) 16%,var(--p-bg));border:.35cqmin solid var(--p-main);
+    border-radius:1.2cqmin;padding:1.4cqmin .6cqmin}
+  .b-award .pod1{padding-top:3.4cqmin;border-color:var(--p-accent);background:color-mix(in srgb,var(--p-accent) 20%,var(--p-bg))}
+  .b-award .pod2{padding-top:2.2cqmin}
+  .b-award .pod3{padding-top:1.4cqmin}
+  .b-award .rk{font-weight:900;font-size:calc(7cqmin*var(--fs));line-height:1;color:var(--p-main)}
+  .b-award .pod1 .rk{font-size:calc(9cqmin*var(--fs));color:var(--p-accent)}
+  .b-award .nm{font-weight:700;font-size:2.9cqmin;line-height:1.25;word-break:break-word}
+  .b-award .prizes{width:100%;display:flex;flex-direction:column;gap:.5cqmin;
+    border:.3cqmin solid var(--p-main);border-radius:1.2cqmin;padding:1.4cqmin}
+  .b-award .pz{display:flex;align-items:center;gap:1.2cqmin;font-size:2.9cqmin;line-height:1.4;text-align:left}
+  .b-award .pz b{flex:none;color:var(--p-accent);font-size:2.7cqmin}
+  .b-award .cta{margin-top:.4cqmin}
+
+  /* 11 縦積み情報型 */
+  .b-stack{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.4cqmin;
+    padding:calc(5cqmin*var(--pad,1)) calc(4cqmin*var(--pad,1));
+    background:var(--bg-pattern,none),var(--p-bg)}
+  .b-stack .stag{align-self:stretch;background:var(--p-ink);color:var(--p-bg);font-weight:800;
+    font-size:3.4cqmin;padding:.25em 0;letter-spacing:.1em}
+  .b-stack .scond{font-size:3cqmin;font-weight:700;line-height:1.35;color:var(--p-ink)}
+  .b-stack .sbig{font-weight:900;line-height:.95;font-size:calc(15cqmin*var(--fs));color:var(--p-accent);letter-spacing:-.02em}
+  .b-stack .sbig small{display:block;font-size:.3em;letter-spacing:0;color:var(--p-ink)}
+  .b-stack .scoupon{background:var(--p-main);color:var(--p-bg);font-weight:800;font-size:3.2cqmin;
+    padding:.5em .7em;border-radius:1cqmin;line-height:1.35}
+  .b-stack .sdates{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.4cqmin;
+    font-size:2.9cqmin;font-weight:700}
+  .b-stack .sdates li{border-bottom:.2cqmin dotted color-mix(in srgb,var(--p-ink) 40%,transparent);padding-bottom:.3em}
+  .b-stack .cta{margin-top:auto}
+
+  /* 12 横長テキスト型 */
+  .b-wide{display:flex;flex-direction:column;background:var(--bg-pattern,none),var(--p-bg)}
+  .b-wide .wtop{display:flex;align-items:center;gap:1.5cqmin;background:var(--p-accent);color:var(--p-bg);
+    padding:.5em calc(3cqmin*var(--pad,1));font-weight:800;font-size:3.4cqmin;line-height:1.3}
+  .b-wide .wlabel{background:var(--p-bg);color:var(--p-accent);font-size:2.8cqmin;padding:.1em .6em;border-radius:.3em;flex:none}
+  .b-wide .wmain{flex:1;display:flex;flex-direction:column;justify-content:center;gap:1.4cqmin;
+    padding:calc(3cqmin*var(--pad,1)) calc(4cqmin*var(--pad,1));text-align:var(--tx-align,center);align-items:center}
+  .b-wide .wrow{display:flex;align-items:center;gap:2cqmin;flex-wrap:wrap;justify-content:center}
+  .b-wide .wpill{background:var(--p-main);color:var(--p-bg);font-weight:800;font-size:3cqmin;
+    padding:.25em .9em;border-radius:999px}
+  .b-wide h3{margin:0;font-weight:900;font-size:calc(9cqmin*var(--fs));line-height:1.15;letter-spacing:-.01em}
+  .b-wide .wsmall{font-size:2.8cqmin;opacity:.8}
+  .b-wide .cta{align-self:center;margin:0 0 calc(2.5cqmin*var(--pad,1))}
+
+  /* 13 特徴リスト型 */
+  .b-list{display:flex;flex-direction:column;gap:1.6cqmin;padding:calc(5cqmin*var(--pad,1));
+    background:var(--bg-pattern,none),var(--p-bg)}
+  .b-list .ltag{align-self:flex-start;background:var(--p-accent);color:var(--p-bg);font-weight:900;
+    font-size:3.6cqmin;padding:.3em .9em;border-radius:.4em}
+  .b-list .lsub{font-size:3cqmin;font-weight:700;color:var(--p-main)}
+  .b-list h3{margin:.2em 0;font-size:calc(5.6cqmin*var(--fs));font-weight:800;line-height:1.35}
+  .b-list .lcheck{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.9cqmin;
+    font-size:3.1cqmin;line-height:1.45}
+  .b-list .lcheck li{padding-left:1.6em;position:relative}
+  .b-list .lcheck li::before{content:"✓";position:absolute;left:0;color:var(--p-accent);font-weight:900}
+  .b-list .cta{align-self:center;margin-top:auto}
+
+  /* 14 大文字コピー型（注釈付き） */
+  .b-copy{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.8cqmin;
+    padding:calc(5cqmin*var(--pad,1));text-align:center;
+    background:var(--bg-pattern,none),radial-gradient(120% 110% at 50% 40%,var(--p-ph1),var(--p-bg) 72%)}
+  .b-copy .brand{color:var(--p-ink)}
+  .b-copy .clead{font-size:calc(4cqmin*var(--fs));font-weight:700;line-height:1.4;
+    border-bottom:.25cqmin solid color-mix(in srgb,var(--p-ink) 35%,transparent);padding-bottom:.5em}
+  .b-copy h3{margin:0;font-weight:900;font-size:calc(11cqmin*var(--fs));line-height:1.12;
+    letter-spacing:-.02em;color:var(--p-accent);text-wrap:balance}
+  .b-copy .ccta{display:inline-flex;align-items:center;gap:1.4cqmin;flex-wrap:wrap;justify-content:center}
+  .b-copy .cpill{background:var(--btn-fg);color:var(--btn-bg);font-weight:800;font-size:.8em;
+    padding:.15em .8em;border-radius:999px;flex:none}
+  .b-copy .cnote{font-size:2.3cqmin;line-height:1.5;opacity:.68;margin-top:.4cqmin}
+
+  /* 15 人物訴求型（切り抜き＋帯） */
+  .b-person{display:grid;grid-template-rows:auto 1fr auto;background:var(--bg-pattern,none),var(--p-bg)}
+  .b-person .ptop2{display:flex;align-items:baseline;justify-content:center;gap:1.2cqmin;flex-wrap:wrap;
+    background:var(--p-main);color:var(--p-bg);padding:.45em calc(3cqmin*var(--pad,1));
+    font-weight:800;font-size:3.2cqmin;line-height:1.3}
+  .b-person .ptop2 b{font-size:5cqmin;font-weight:900;letter-spacing:-.01em}
+  .b-person .pmid{display:grid;grid-template-columns:1fr var(--split,50%);min-height:0}
+  .b-person .ptxt{display:flex;flex-direction:column;justify-content:center;gap:1.2cqmin;
+    padding:calc(3.5cqmin*var(--pad,1));text-align:left}
+  .b-person .plead2{font-size:calc(3.6cqmin*var(--fs));font-weight:700;line-height:1.35}
+  .b-person h3{margin:0;font-weight:900;font-size:calc(7cqmin*var(--fs));line-height:1.2;
+    color:var(--p-bg);background:var(--p-accent);padding:.2em .4em;display:inline-block;text-wrap:balance}
+  .b-person .pph{height:100%}
+  .b-person .pbar{display:flex;align-items:center;justify-content:space-between;gap:2cqmin;
+    background:var(--p-ink);color:var(--p-bg);padding:.5em calc(3cqmin*var(--pad,1))}
+  .b-person .pbar .brand{font-size:3.6cqmin;color:var(--p-bg)}
+
+  /* 16 実績バッジ型（横長） */
+  .b-medal{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2.5cqmin;
+    padding:calc(2.5cqmin*var(--pad,1)) calc(3.5cqmin*var(--pad,1));
+    background:var(--bg-pattern,none),var(--p-bg);
+    border-top:.7cqmin solid var(--p-main);border-bottom:.7cqmin solid var(--p-main)}
+  .b-medal .mseal{flex:none;display:flex;align-items:center;justify-content:center;text-align:center;
+    width:16cqmin;height:16cqmin;border-radius:50%;background:var(--p-main);color:var(--p-bg);
+    font-weight:900;font-size:3.4cqmin;line-height:1.15;border:.5cqmin solid var(--p-accent)}
+  .b-medal .mtxt{min-width:0;text-align:center}
+  .b-medal .myear{font-size:3.2cqmin;font-weight:700;opacity:.85}
+  .b-medal h3{margin:.15em 0 0;font-weight:800;font-size:calc(5cqmin*var(--fs));line-height:1.25;text-wrap:balance}
+  .b-medal .mrank{flex:none;font-weight:900;font-size:calc(9cqmin*var(--fs));color:var(--p-accent);line-height:1;letter-spacing:-.02em}
+
+  /* 17 診断・2択型 */
+  .b-quiz{display:flex;flex-direction:column;gap:1.8cqmin;padding:calc(4cqmin*var(--pad,1));
+    background:var(--bg-pattern,none),var(--p-ph1)}
+  .b-quiz .qtop{display:flex;align-items:center;gap:2cqmin}
+  .b-quiz .qno{flex:none;width:13cqmin;height:13cqmin;border-radius:50%;background:var(--p-accent);color:var(--p-bg);
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:4.4cqmin}
+  .b-quiz .qhead{display:flex;flex-direction:column;gap:.5cqmin;font-size:3.2cqmin;font-weight:700;line-height:1.3;min-width:0}
+  .b-quiz .qsec{align-self:flex-start;background:var(--p-bg);color:var(--p-ink);font-size:2.6cqmin;
+    padding:.15em .7em;border-radius:.3em}
+  .b-quiz .qcard{background:var(--p-bg);border-radius:2cqmin;padding:calc(3cqmin*var(--pad,1));text-align:center}
+  .b-quiz .qcard h3{margin:0;font-weight:900;font-size:calc(5.6cqmin*var(--fs));line-height:1.35}
+  .b-quiz .qopts{display:grid;grid-template-columns:1fr 1fr;gap:1.6cqmin;flex:1;min-height:0}
+  .b-quiz .qopt{background:var(--p-bg);border:.45cqmin solid var(--p-accent);border-radius:2cqmin;
+    padding:calc(2.4cqmin*var(--pad,1));display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:1cqmin;text-align:center;font-size:3cqmin;font-weight:700;line-height:1.4}
+  .b-quiz .qopt b{background:var(--p-accent);color:var(--p-bg);border-radius:.4em;
+    padding:.05em .7em;font-size:3.2cqmin;line-height:1.4}
+  .b-quiz .qnote{align-self:center;background:var(--p-main);color:var(--p-bg);font-weight:700;
+    font-size:2.9cqmin;padding:.35em 1em;border-radius:.4em}
+
+  /* 18 装飾文字型（キャラ添え） */
+  .b-deco{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4cqmin;
+    padding:calc(6cqmin*var(--pad,1));text-align:center;
+    background:var(--bg-pattern,none),linear-gradient(150deg,var(--p-ph1),var(--p-bg) 60%,var(--p-ph2))}
+  .b-deco .dlabel{background:var(--p-bg);color:var(--p-main);font-weight:800;font-size:3.4cqmin;
+    padding:.3em 1em;border-radius:999px;border:.35cqmin solid var(--p-main)}
+  .b-deco h3{margin:0;font-weight:900;font-size:calc(10cqmin*var(--fs));line-height:1.22;letter-spacing:-.01em;
+    color:var(--p-accent);paint-order:stroke fill;-webkit-text-stroke:1.4cqmin var(--p-bg);
+    text-shadow:0 .5cqmin 0 color-mix(in srgb,var(--p-ink) 30%,transparent)}
+
+  /* 19 英字タイポ型 */
+  .b-type{display:grid;grid-template-rows:auto 1fr auto;
+    background:var(--bg-pattern,none),linear-gradient(115deg,var(--p-ph2),var(--p-main) 55%,var(--p-ph1))}
+  .b-type .tband{display:flex;align-items:center;gap:1.6cqmin;flex-wrap:wrap;
+    background:var(--p-accent);color:var(--p-bg);padding:.4em calc(3cqmin*var(--pad,1));
+    font-weight:800;font-size:3.2cqmin;line-height:1.3}
+  .b-type .tbadge{background:var(--p-bg);color:var(--p-accent);font-size:2.7cqmin;padding:.12em .7em;border-radius:.3em;flex:none}
+  .b-type .ttitle{display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:calc(2cqmin*var(--pad,1)) calc(3cqmin*var(--pad,1));
+    font-weight:900;font-size:calc(15cqmin*var(--fs));line-height:.95;letter-spacing:-.03em;
+    color:var(--p-bg);text-transform:uppercase;font-style:italic;text-wrap:balance;
+    text-shadow:.6cqmin .6cqmin 0 color-mix(in srgb,var(--p-ink) 45%,transparent)}
+  .b-type .tfoot{display:flex;align-items:center;justify-content:space-between;gap:2cqmin;flex-wrap:wrap;
+    padding:.5em calc(3cqmin*var(--pad,1)) calc(2.5cqmin*var(--pad,1));
+    color:var(--p-bg);font-weight:700;font-size:3cqmin}
+  .b-type .tfoot .brand{color:var(--p-bg);font-size:3.4cqmin}
+
+  /* 20 帯テキスト積み上げ型 */
+  .b-band{display:flex;flex-direction:column;align-items:center;gap:1.6cqmin;overflow:hidden;
+    padding:calc(5cqmin*var(--pad,1)) calc(4cqmin*var(--pad,1)) 0;text-align:center;
+    background:var(--bg-pattern,none),linear-gradient(160deg,var(--p-ph1),var(--p-bg) 65%)}
+  .b-band h3{margin:0;font-weight:900;font-size:calc(12cqmin*var(--fs));line-height:1.05;
+    color:var(--p-bg);letter-spacing:-.02em;
+    paint-order:stroke fill;-webkit-text-stroke:.5cqmin color-mix(in srgb,var(--p-main) 60%,transparent)}
+  .b-band .bstack{display:flex;flex-direction:column;gap:1cqmin;width:100%}
+  .b-band .bline{display:flex;align-items:baseline;justify-content:center;gap:.6cqmin;
+    font-weight:900;font-size:calc(6cqmin*var(--fs));line-height:1.25;padding:.28em .5em}
+  .b-band .bline em{font-style:normal;font-size:.62em;font-weight:800}
+  .b-band .bl1{background:var(--p-bg);color:var(--p-main)}
+  .b-band .bl2{background:var(--p-main);color:var(--p-bg)}
+  .b-band .bl2 span{color:var(--p-accent)}
+  .b-band .bmsg{font-weight:800;font-size:calc(4.2cqmin*var(--fs));line-height:1.5;color:var(--p-main)}
+  .b-band .cta{margin-top:auto;flex:none}
+  .b-band .bfoot{align-self:stretch;margin:1.6cqmin calc(-4cqmin*var(--pad,1)) 0;background:var(--p-ink);
+    padding:.5em 0;display:flex;justify-content:center;flex:none}
+  .b-band .bfoot .brand{color:var(--p-bg);font-size:3.6cqmin}
+
+  /* 21 日程カード型 */
+  .b-dates{display:flex;flex-direction:column;align-items:center;gap:1.6cqmin;
+    padding:calc(5cqmin*var(--pad,1));text-align:center;
+    background:var(--bg-pattern,none),linear-gradient(155deg,var(--p-ph2),var(--p-bg) 120%)}
+  .b-dates .brand{color:var(--p-bg)}
+  .b-dates h3{margin:0;align-self:stretch;background:var(--p-bg);color:var(--p-main);
+    font-weight:900;font-size:calc(9cqmin*var(--fs));line-height:1.25;padding:.15em 0}
+  .b-dates .dsub{font-weight:800;font-size:calc(4.2cqmin*var(--fs));color:var(--p-bg)}
+  .b-dates .dcards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6cqmin;width:100%;margin-top:auto}
+  .b-dates .dcard{background:var(--p-bg);color:var(--p-ink);border-radius:1cqmin;
+    padding:1.6cqmin .4cqmin;display:flex;flex-direction:column;align-items:center;gap:.2cqmin;line-height:1.15}
+  .b-dates .dcard b{font-size:calc(7cqmin*var(--fs));font-weight:900;color:var(--p-main);letter-spacing:-.02em}
+  .b-dates .dcard i{font-style:normal;font-weight:800;font-size:3.4cqmin}
+  .b-dates .dcard span{font-weight:800;font-size:2.6cqmin;opacity:.8}
+
   footer.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12.5px}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -439,7 +653,7 @@
       <div class="brandmark">バナー<b>アタリ</b>ボード</div>
       <div class="tagline">型 × 配色 × フォントを一気に並べて、当たりに目星をつける</div>
     </div>
-    <div class="brief"><span class="dot"></span>30代女性 × メイク用品（美容液）</div>
+    <div class="brief"><span class="dot"></span>20の型 × 50配色</div>
   </header>
 
   <div class="app">
@@ -471,6 +685,8 @@
       <section class="blk">
         <p class="ctl-label">サイズ（媒体）</p>
         <div class="fonts" id="sizes"></div>
+        <button class="clearbtn sm" id="szfilter" style="margin-top:8px;width:100%"></button>
+        <span class="imghint" id="szhint" style="display:block;margin-top:6px"></span>
         <p class="ctl-label" style="margin-top:12px">書き出し解像度</p>
         <div class="fonts" id="dlmults"></div>
       </section>
@@ -589,19 +805,19 @@
       </section>
       <section class="blk">
         <p class="ctl-label">画像（3段で写真比較）</p>
-        <span class="imghint" id="imghint">各段のバーで画像を設定（選ぶ / ⌘V・Ctrl+V 貼り付け / ドロップ）。同じ7型を写真違いで見比べられます。反映後は写真をドラッグで上下左右に位置調整（端末内で処理・アップロードなし）</span>
+        <span class="imghint" id="imghint">各段のバーで画像を設定（選ぶ / ⌘V・Ctrl+V 貼り付け / ドロップ）。同じ型を写真違いで見比べられます。反映後は写真をドラッグで上下左右に位置調整（端末内で処理・アップロードなし）</span>
       </section>
     </aside>
 
     <main class="main">
-      <p class="note">8つの型が<b>3行</b>に並びます。<b>行ごと</b>／<b>1枚ごと</b>に写真を差し替えて見比べられます。配色・フォント・サイズは全体共通。<b>文字はクリックでその場編集</b>。</p>
+      <p class="note">選んだサイズに向く型が並びます。<b>行ごと</b>／<b>1枚ごと</b>に写真を差し替えて見比べられます。配色・フォント・サイズは全体共通。<b>文字はクリックでその場編集</b>。</p>
       <div id="board"></div>
     </main>
   </div>
 
   <footer class="foot">
     各カードの「設計図」で “型／配色／フォント／サイズ” のテキスト、「PNG書き出し」で画像を保存できます。仕上げはCanvaへ。
-    <span style="opacity:.45;margin-left:.6em">build 0907-l</span>
+    <span style="opacity:.45;margin-left:.6em">build 0907-s</span>
   </footer>
 </div>
 
@@ -752,29 +968,29 @@ const FONTS = [
 ];
 
 const BANNERS = [
-  {type:'フルビジュアル型', fit:'ブランディング・雰囲気で魅せる', html:`
+  {type:'フルビジュアル型', fit:'ブランディング・雰囲気で魅せる', sz:['sq','tall','wide','thin','skinny'], html:`
     <div class="banner b-full">
       <div class="photo"></div><div class="veil"></div>
       <div class="txt"><div class="brand" data-tk="brand">TSUYA</div><h3 data-tk="h">素肌から、<br>澄んでいく。</h3><span class="cta ghost" data-tk="cta">詳しくはこちら</span></div>
     </div>`},
-  {type:'左右分割型', fit:'商品＋コピーを両立', html:`
+  {type:'左右分割型', fit:'商品＋コピーを両立', sz:['sq','wide'], html:`
     <div class="banner b-lr">
       <div class="photo"></div>
       <div class="txt"><div class="kicker" style="color:var(--p-accent)" data-tk="kick">NEW SERUM</div>
       <h3 data-tk="h">30代の肌に、<br>ハリという自信を。</h3><span class="cta" data-tk="cta">今すぐチェック ›</span></div>
     </div>`},
-  {type:'上下分割型', fit:'順に読ませる・告知向き', html:`
+  {type:'上下分割型', fit:'順に読ませる・告知向き', sz:['sq','tall','skinny'], html:`
     <div class="banner b-tb">
       <div class="txt"><div class="kicker" style="color:var(--p-accent)" data-tk="kick">先行予約 受付中</div>
       <h3 data-tk="h">今日の肌が、<br>明日を決める。</h3></div>
       <div class="photo"><span class="cta" data-tk="cta">詳しくはこちら ›</span></div>
     </div>`},
-  {type:'中央集中型', fit:'新商品・一点勝負', html:`
+  {type:'中央集中型', fit:'新商品・一点勝負', sz:['sq','tall'], html:`
     <div class="banner b-hero">
       <div class="kicker" style="color:var(--p-accent)" data-tk="kick">2026 NEW</div>
       <div class="bottle"></div><h3 data-tk="h">新発売。</h3>
     </div>`},
-  {type:'情報詰め込み型', fit:'セール・お得訴求', html:`
+  {type:'情報詰め込み型', fit:'セール・お得訴求', sz:['sq','tall'], html:`
     <div class="banner b-info">
       <span class="ribbon" data-tk="ribbon">＼ 期間限定 ／</span>
       <div class="big"><span data-tk="num">20</span><small data-tk="unit">％OFF</small></div>
@@ -782,12 +998,12 @@ const BANNERS = [
       <div class="row"><span class="tag" data-tk="t1">送料無料</span><span class="tag" data-tk="t2">2点で+5%</span><span class="tag" data-tk="t3">〜9/30</span></div>
       <span class="cta" data-tk="cta">今すぐ購入 ›</span>
     </div>`},
-  {type:'ミニマル余白型', fit:'高級感・信頼・上質', html:`
+  {type:'ミニマル余白型', fit:'高級感・信頼・上質', sz:['sq','tall','wide','thin','skinny'], html:`
     <div class="banner b-min">
       <div class="brand" data-tk="brand">TSUYA</div><div class="rule"></div>
       <h3 data-tk="h">うるおい、<br>ふたたび。</h3><span class="cta ghost" data-tk="cta">View more</span>
     </div>`},
-  {type:'シズル型（商品＋帯）', fit:'食品・飲料・キャンペーン', html:`
+  {type:'シズル型（商品＋帯）', fit:'食品・飲料・キャンペーン', sz:['sq','tall'], html:`
     <div class="banner b-sizzle">
       <div class="photo"></div>
       <div class="txt"><h3 data-tk="h">夏のレモンに<br>新定番</h3></div>
@@ -796,11 +1012,149 @@ const BANNERS = [
         <span class="cta" data-tk="cta">Check it ▶</span>
       </div>
     </div>`},
-  {type:'キャラ・吹き出し型', fit:'親近感・悩み訴求', html:`
+  {type:'キャラ・吹き出し型', fit:'親近感・悩み訴求', off:1, sz:['sq','tall'], html:`
     <div class="banner b-talk">
       <div class="face"><div class="hair"></div><div class="head"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div></div>
       <div class="bubble" data-tk="bubble">毛穴、<br>どうしてる？</div>
       <h3 data-tk="h">30代のゆらぎ肌に。</h3><span class="cta" data-tk="cta">診断してみる ›</span>
+    </div>`},
+  {type:'特典訴求型（帯＋巨大数字）', fit:'通信・金融・キャンペーン／正方形向き', sz:['sq','tall','wide','skinny'], html:`
+    <div class="banner b-price">
+      <div class="ptop">
+        <div class="ptop-h" data-tk="kick">ドコモ・ahamoユーザー必見</div>
+        <div class="ptop-b"><span class="pcode" data-tk="code">DCTK</span><span data-tk="note">を入力で特典増額！</span></div>
+      </div>
+      <div class="pbody">
+        <div class="plead" data-tk="h">10ギガ新規開通 全員対象</div>
+        <div class="pbig"><span data-tk="num">70,000</span><small data-tk="unit">円</small></div>
+        <div class="psub" data-tk="sub">キャッシュバック</div>
+        <div class="pnote" data-tk="t1">※期間・用途限定　※予告なく終了する場合があります</div>
+        <div class="pfoot"><span class="brand" data-tk="brand">TSUYA</span><span class="cta" data-tk="cta">詳しくはこちら ▶</span></div>
+      </div>
+    </div>`},
+  {type:'ランキング型（表彰台）', fit:'表彰・実績発表／正方形・縦長向き', sz:['sq','tall'], html:`
+    <div class="banner b-award">
+      <div class="atop">
+        <div class="acrown">♕</div>
+        <div class="kicker" data-tk="kick">成果報告</div>
+        <h3 data-tk="h">月次アワード受賞者発表</h3>
+      </div>
+      <div class="podium">
+        <div class="pod pod2"><span class="rk">2</span><span class="nm" data-tk="r2">Kanami</span></div>
+        <div class="pod pod1"><span class="rk">1</span><span class="nm" data-tk="r1">hakko 1219</span></div>
+        <div class="pod pod3"><span class="rk">3</span><span class="nm" data-tk="r3">Takuma</span></div>
+      </div>
+      <div class="prizes">
+        <div class="pz"><b>1位</b><span data-tk="p1">Amazonギフト券 7,000円分</span></div>
+        <div class="pz"><b>2位</b><span data-tk="p2">Amazonギフト券 5,000円分</span></div>
+        <div class="pz"><b>3位</b><span data-tk="p3">Amazonギフト券 3,000円分</span></div>
+      </div>
+      <span class="cta" data-tk="cta">詳細はここをタップ ›</span>
+    </div>`},
+  {type:'縦積み情報型', fit:'条件が多い訴求／スカイスクレイパー向き', sz:['tall','skinny'], html:`
+    <div class="banner b-stack">
+      <div class="stag" data-tk="kick">PR</div>
+      <div class="scond" data-tk="note">要エントリー＆ネット予約・来店</div>
+      <div class="sbig"><span data-tk="num">400</span><small data-tk="unit">ポイント進呈</small></div>
+      <div class="scoupon" data-tk="sub">クーポン 先着2,600枚配布</div>
+      <ul class="sdates"><li data-tk="t1">7/1（水）〜7/15</li><li data-tk="t2">8/1（土）〜8/15</li></ul>
+      <span class="cta" data-tk="cta">詳しくはこちら ▶</span>
+    </div>`},
+  {type:'横長テキスト型', fit:'文字だけで押す／X横・ビッグバナー向き', sz:['wide','thin'], html:`
+    <div class="banner b-wide">
+      <div class="wtop"><span class="wlabel" data-tk="code">広告</span><span data-tk="kick">これを知ったあなたは超おトク！</span></div>
+      <div class="wmain">
+        <div class="wrow"><span class="brand" data-tk="brand">TSUYA</span><span class="wpill" data-tk="note">今のスマホそのまま</span></div>
+        <h3 data-tk="h">お乗り換え<br>キャンペーン実施中！</h3>
+        <span class="wsmall" data-tk="sub">要エントリー</span>
+      </div>
+      <span class="cta" data-tk="cta">詳しくはこちら ›</span>
+    </div>`},
+  {type:'特徴リスト型', fit:'プラン・機能の説明／正方形・レクタングル向き', sz:['sq','tall'], html:`
+    <div class="banner b-list">
+      <div class="ltag" data-tk="kick">TSUYA ポイ活 20</div>
+      <div class="lsub" data-tk="note">20GB〜無制限</div>
+      <h3 data-tk="h">気軽にポイ活をスタート！</h3>
+      <ul class="lcheck">
+        <li data-tk="t1">2段階制の料金プラン</li>
+        <li data-tk="t2">d払い＆dカードでのお買物が還元率UP</li>
+        <li data-tk="t3">最短即日で使えます</li>
+      </ul>
+      <span class="cta" data-tk="cta">詳しくはこちら ▶</span>
+    </div>`},
+  {type:'大文字コピー型（注釈付き）', fit:'条件付きオファー／正方形向き', sz:['sq','wide'], html:`
+    <div class="banner b-copy">
+      <span class="brand" data-tk="brand">TSUYA</span>
+      <div class="clead" data-tk="kick">今のスマホそのまま他社からお乗り換えで</div>
+      <h3 data-tk="h">6か月間<br>実質無料に!?</h3>
+      <span class="cta ccta"><span class="cpill" data-tk="code">要エントリー</span><span data-tk="cta">諸条件等、詳しくはこちら ▶</span></span>
+      <div class="cnote" data-tk="note">＊1 機種代別途　＊2 進呈されるポイント（期間・用途限定）を月額利用料で換算した場合の相当額です</div>
+    </div>`},
+  {type:'人物訴求型（切り抜き＋帯）', fit:'講座・サービス・士業／レクタングル向き', sz:['sq','wide'], html:`
+    <div class="banner b-person">
+      <div class="ptop2"><span data-tk="kick">開講21年のサポート実績</span><b data-tk="num">68,000</b><span data-tk="unit">名</span></div>
+      <div class="pmid">
+        <div class="ptxt">
+          <div class="plead2" data-tk="sub">経験記述の作文作成 代行します！</div>
+          <h3 data-tk="h">合格徹底<br>サポート！</h3>
+        </div>
+        <div class="photo pph"></div>
+      </div>
+      <div class="pbar"><span class="brand" data-tk="brand">TSUYA</span><span class="cta" data-tk="cta">詳しくはこちら ›</span></div>
+    </div>`},
+  {type:'実績バッジ型（横長）', fit:'受賞・No.1／ビッグバナー・横長向き', sz:['wide','thin'], html:`
+    <div class="banner b-medal">
+      <div class="mseal" data-tk="code">第1位</div>
+      <div class="mtxt"><div class="myear" data-tk="kick">2026年 顧客満足度調査</div><h3 data-tk="h">＼ 食材宅配 首都圏 共働き世帯 ／</h3></div>
+      <div class="mrank" data-tk="rank">第1位</div>
+    </div>`},
+  {type:'診断・2択型', fit:'診断コンテンツ・スクール／レクタングル向き', sz:['sq','wide'], html:`
+    <div class="banner b-quiz">
+      <div class="qtop">
+        <span class="qno" data-tk="code">Q1</span>
+        <div class="qhead"><span data-tk="kick">あなたに合った Webデザインスクール診断</span>
+        <span class="qsec" data-tk="sub">簡単10秒</span></div>
+      </div>
+      <div class="qcard"><h3 data-tk="h">料金は<br>どちらが良いですか？</h3></div>
+      <div class="qopts">
+        <div class="qopt"><b>A</b><span data-tk="t1">給付金やキャンペーンで費用を安くしたい</span></div>
+        <div class="qopt"><b>B</b><span data-tk="t2">学習の質が高ければ高額でも構わない</span></div>
+      </div>
+      <span class="qnote" data-tk="note">自分の考えに近いほうをクリック</span>
+    </div>`},
+  {type:'装飾文字型（キャラ添え）', fit:'キャンペーン・ゲーム性／正方形向き', sz:['sq','tall','wide','skinny'], html:`
+    <div class="banner b-deco">
+      <span class="dlabel" data-tk="kick">あそんで ポイントGET ♪</span>
+      <h3 data-tk="h">幸運の<br>お買いものパンダを<br>探せ！</h3>
+      <span class="cta" data-tk="cta">今すぐ参加 ›</span>
+    </div>`},
+  {type:'英字タイポ型', fit:'セール・催事の看板／横長向き', sz:['wide','thin'], html:`
+    <div class="banner b-type">
+      <div class="tband"><span class="tbadge" data-tk="code">新春初売り</span><span data-tk="kick">1.3 Sat 10:00 START!</span></div>
+      <div class="ttitle" data-tk="h">AVENUE BAZAR</div>
+      <div class="tfoot"><span data-tk="sub">2026.1.3 Sat - 31 Sat</span><span class="brand" data-tk="brand">TSUYA</span></div>
+    </div>`},
+  {type:'帯テキスト積み上げ型', fit:'サービス・スクール・求人／正方形向き', sz:['sq','tall'], html:`
+    <div class="banner b-band">
+      <h3 data-tk="h">次の案件は？</h3>
+      <div class="bstack">
+        <div class="bline bl1"><span data-tk="sub">案件単価200万円以上</span><em data-tk="t1">の</em></div>
+        <div class="bline bl2"><span data-tk="t2">グローバルPJ案件</span><em data-tk="t3">など</em></div>
+      </div>
+      <div class="bmsg" data-tk="note">フリーランスで大規模案件の<br>経験を積むチャンス</div>
+      <span class="cta" data-tk="cta">いますぐ案件をさがす ≫</span>
+      <div class="bfoot"><span class="brand" data-tk="brand">TSUYA</span></div>
+    </div>`},
+  {type:'日程カード型', fit:'複数日程の事前告知／正方形向き', sz:['sq','tall'], html:`
+    <div class="banner b-dates">
+      <span class="brand" data-tk="brand">TSUYA</span>
+      <h3 data-tk="h">お得情報</h3>
+      <div class="dsub" data-tk="sub">お得がいっぱい 事前告知</div>
+      <div class="dcards">
+        <div class="dcard"><b data-tk="t1">1/31</b><i data-tk="p1">18:00</i><span>START!</span></div>
+        <div class="dcard"><b data-tk="t2">2/6</b><i data-tk="p2">0:00</i><span>START!</span></div>
+        <div class="dcard"><b data-tk="t3">2/7</b><i data-tk="p3">0:00</i><span>START!</span></div>
+      </div>
     </div>`},
 ];
 
@@ -862,6 +1216,27 @@ let curBgps=new Set();      // 全体に効く背景パターン（複数可）
 let bannerBgps={};          // キー `${row}-${type}` ごとの個別パターン
 let bannerImg={};           // キー `${row}-${type}` ごとの個別の背景写真（最優先）
 const LINE_COLS=3;          // 横1行に並べる枚数
+// 使う型だけを並べる（off:1 の型は出さない。BANNERSの番号は変えないので棚の保存は壊れない）
+let VIS=[];
+let sizeFilter=true;        // 選んだサイズに向く型だけ出す
+function sizeClass(idx){
+  const S=SIZES[idx]||SIZES[0];
+  const r=S.w/S.h;
+  if(r>=3.2) return 'thin';            // ビッグバナー・モバイルバナー（横に細長い）
+  if(r>=1.4) return 'wide';            // X横・OGP
+  if(r<=0.45) return 'skinny';         // スカイスクレイパー（縦に細長い）
+  if(r<=0.72) return 'tall';           // ストーリー
+  return 'sq';                         // 正方形・4:5・レクタングル
+}
+function fitsSize(i,cls){ const z=BANNERS[i].sz; return !z || z.includes(cls); }
+function refreshVis(){
+  const cls=sizeClass(curSize);
+  const live=BANNERS.map((b,i)=>i).filter(i=>!BANNERS[i].off);
+  VIS = sizeFilter ? live.filter(i=>fitsSize(i,cls)) : live;
+  if(!VIS.length) VIS=live;
+}
+function lineOf(ti){ const k=VIS.indexOf(+ti); return k<0 ? 0 : Math.floor(k/LINE_COLS); }
+function tisInLine(li){ return VIS.slice(li*LINE_COLS,(li+1)*LINE_COLS); }
 let lineImg={};             // キー `${row}-${行番号}` ごとの背景写真（段より優先・個別より下）
 let picked=new Set();       // チェックしたバナー
 const BNRADII=[{id:0,name:'角（四角）'},{id:8,name:'角丸 小'},{id:16,name:'角丸 中'},{id:28,name:'角丸 大'}];
@@ -925,6 +1300,18 @@ function renderControls(){
   const tgt=pickedTargets();
   const activeSet=tgt.length? (bannerBgps[tgt[0]]||new Set()) : curBgps;
   const S0=SIZES[curSize];
+  const sf=document.getElementById('szfilter'), sh=document.getElementById('szhint');
+  if(sf){
+    const cls=sizeClass(curSize);
+    const live=BANNERS.map((b,i)=>i).filter(i=>!BANNERS[i].off);
+    const fit=live.filter(i=>fitsSize(i,cls)).length;
+    const NM={sq:'正方形まわり',tall:'縦長',wide:'横長',thin:'横に細長い枠',skinny:'縦に細長い枠'};
+    sf.textContent = sizeFilter ? 'すべての型を出す' : `${NM[cls]}に向く型だけにする`;
+    sf.setAttribute('aria-pressed', sizeFilter?'true':'false');
+    if(sh) sh.textContent = sizeFilter
+      ? `${NM[cls]}に向く ${fit}型 を表示中（全${live.length}型）`
+      : `全${live.length}型を表示中`;
+  }
   document.getElementById('dlmults').innerHTML = [1,2,3].map(m=>`
     <button class="fbtn" aria-pressed="${m===dlMult}" data-dm="${m}">${m===1?'実寸':m+'倍'}<small>${Math.round(S0.w*m)}×${Math.round(S0.h*m)}</small></button>`).join('');
   document.getElementById('veils').innerHTML = VEILS.map(v=>`
@@ -1022,10 +1409,9 @@ function cardHTML(r,i){
 }
 function linesHTML(r){
   const out=[];
-  for(let start=0; start<BANNERS.length; start+=LINE_COLS){
+  for(let start=0; start<VIS.length; start+=LINE_COLS){
     const li=start/LINE_COLS;
-    const cards=[];
-    for(let k=start; k<Math.min(start+LINE_COLS,BANNERS.length); k++) cards.push(cardHTML(r,k));
+    const cards=VIS.slice(start,start+LINE_COLS).map(k=>cardHTML(r,k));
     out.push(`
       <div class="linegroup" data-line="${r}-${li}">
         <div class="linebar">
@@ -1040,6 +1426,7 @@ function linesHTML(r){
   return out.join('');
 }
 function renderGrid(){
+  refreshVis();
   const rows=[];
   for(let r=0;r<ROWS;r++){
     rows.push(`
@@ -1130,7 +1517,7 @@ function applyPerBanner(){
     if(own){ applyBgSet(bn,own); }
     else { ['--bg-pattern','--p-bg','--p-ink'].forEach(v=>bn.style.removeProperty(v)); bn.dataset.frame=''; }
     // このバナーだけの背景写真（あれば段の写真より優先）
-    const lkey=`${card.dataset.r}-${Math.floor(+card.dataset.ti/LINE_COLS)}`;
+    const lkey=`${card.dataset.r}-${lineOf(card.dataset.ti)}`;
     const im=bannerImg[key]||lineImg[lkey];
     if(im){ bn.style.setProperty('--p-img',`url("${im}")`); bn.dataset.hasimg='1'; }
     else { bn.style.removeProperty('--p-img'); bn.dataset.hasimg=''; }
@@ -1225,7 +1612,7 @@ function veilCSS(v){
 }
 function photoURLFor(r,ti){                       // 個別 → 行 → 段 の優先順
   const b=bannerImg[`${r}-${ti}`];      if(b) return `url("${b}")`;
-  const l=lineImg[`${r}-${Math.floor(ti/LINE_COLS)}`]; if(l) return `url("${l}")`;
+  const l=lineImg[`${r}-${lineOf(ti)}`]; if(l) return `url("${l}")`;
   return (rowImg[r] && rowImg[r]!=='none') ? rowImg[r] : '';   // rowImg は url("…") 形式
 }
 function fadeCSS(v){                                 // 写真を背景色に溶かす（透明度）
@@ -1278,23 +1665,33 @@ const baseHint='各段のバーで画像を設定（選ぶ / ⌘V・Ctrl+V 貼�
 // tk がどの型に存在するか。global は全型で共通の文字。
 const TXTMAP={
   brand:{global:'brand', label:'ブランド名'},
-  h:    {tk:'h',    tis:[0,1,2,3,5,6,7], label:'見出し', area:1},
-  kick: {tk:'kick', tis:[1,2,3],         label:'小見出し'},
-  cta:  {tk:'cta',  tis:[0,1,2,3,4,5,6,7], label:'ボタン'},
+  h:    {tk:'h',    tis:[0,1,2,3,5,6,7,9,11,12,13,14,15,16,17,18,19,20], label:'見出し', area:1},
+  kick: {tk:'kick', tis:[1,2,3,8,9,10,11,12,13,14,15,16,17,18], label:'小見出し'},
+  cta:  {tk:'cta',  tis:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,17,19], label:'ボタン'},
   badge:{global:'badge', label:'バッジ'},
+  code: {tk:'code', tis:[8,11,13,15,16,18], label:'小さいラベル（コード・広告など）'},
+  sub:  {tk:'sub',  tis:[8,10,11,14,16,18,19,20], label:'サブコピー', area:1},
+  note: {tk:'note', tis:[8,10,11,12,13,16,19], label:'注釈・条件', area:1},
   ribbon:{tk:'ribbon',tis:[4], label:'リボン'},
-  num:  {tk:'num',  tis:[4], label:'数字'},
-  unit: {tk:'unit', tis:[4], label:'単位'},
+  num:  {tk:'num',  tis:[4,8,10,14], label:'数字'},
+  unit: {tk:'unit', tis:[4,8,10,14], label:'単位'},
   was:  {tk:'was',  tis:[4], label:'旧価格'},
   now:  {tk:'now',  tis:[4], label:'新価格'},
-  t1:   {tk:'t1',   tis:[4], label:'タグ1'},
-  t2:   {tk:'t2',   tis:[4], label:'タグ2'},
-  t3:   {tk:'t3',   tis:[4], label:'タグ3'},
+  t1:   {tk:'t1',   tis:[4,8,10,12,16,19,20], label:'選択肢A・タグ1', area:1},
+  t2:   {tk:'t2',   tis:[4,10,12,16,19,20], label:'選択肢B・タグ2', area:1},
+  t3:   {tk:'t3',   tis:[4,10,12,19,20], label:'タグ3'},
   strip:{tk:'strip',tis:[6], label:'帯コピー', area:1},
   bubble:{tk:'bubble',tis:[7], label:'吹き出し', area:1},
+  r1:   {tk:'r1',   tis:[9], label:'1位の名前'},
+  r2:   {tk:'r2',   tis:[9], label:'2位の名前'},
+  r3:   {tk:'r3',   tis:[9], label:'3位の名前'},
+  p1:   {tk:'p1',   tis:[9,20], label:'1位の賞品・時刻1'},
+  p2:   {tk:'p2',   tis:[9,20], label:'2位の賞品・時刻2'},
+  p3:   {tk:'p3',   tis:[9,20], label:'3位の賞品・時刻3'},
+  rank: {tk:'rank', tis:[15], label:'順位'},
 };
-const TXT_MAIN=['brand','h','kick','cta','badge'];
-const TXT_MORE=['ribbon','num','unit','was','now','t1','t2','t3','strip','bubble'];
+const TXT_MAIN=['brand','h','kick','cta','sub','code','note','badge'];
+const TXT_MORE=['ribbon','num','unit','was','now','t1','t2','t3','strip','bubble','r1','r2','r3','p1','p2','p3','rank'];
 // シーズン／キャンペーンのひな形（選ぶと文字が一気に入れ替わる）
 const OCCASIONS=[
   {g:'シーズンイベント', id:'お正月', t:{h:'新春、はじまる。',kick:'NEW YEAR',cta:'初売りを見る ›',badge:'新春',ribbon:'＼ 新春初売り ／',num:'50',unit:'％OFF',was:'¥5,000',now:'¥2,500',t1:'送料無料',t2:'福袋あり',t3:'〜1/7',strip:'新春キャンペーン<br>1/1スタート',bubble:'今年こそ、はじめる？'}},
@@ -1732,7 +2129,7 @@ async function setLineImage(key,file){
     const g=await loadImageScaled(file,2400,false);
     revokeURL(lineImg[key]); lineImg[key]=g.url;
     const [r,li]=key.split('-').map(Number);
-    for(let k=li*LINE_COLS;k<(li+1)*LINE_COLS;k++) delete imgPos[`${r}-${k}`];
+    tisInLine(li).forEach(k=>delete imgPos[`${r}-${k}`]);
     applyPerBanner(); applyPhotoPositions(); applyLineThumbs();
     flashHint(`${li+1}行目に写真を反映 ✓（${imgNote(g)}）`);
   }catch(e){ flashHint((e&&e.message)?e.message:'画像を読み込めませんでした'); }
@@ -1782,7 +2179,7 @@ document.addEventListener('click',e=>{
   const lcl=e.target.closest('[data-lclear]');
   if(lcl){ const key=lcl.dataset.lclear; delete lineImg[key];
     const [r,li]=key.split('-').map(Number);
-    for(let k=li*LINE_COLS;k<(li+1)*LINE_COLS;k++) delete imgPos[`${r}-${k}`];
+    tisInLine(li).forEach(k=>delete imgPos[`${r}-${k}`]);
     applyPerBanner(); applyPhotoPositions(); applyLineThumbs(); flashHint(`${li+1}行目の写真を解除しました`); return; }
   const bcl=e.target.closest('[data-bclear]');
   if(bcl){ delete bannerImg[bcl.dataset.bclear]; delete imgPos[bcl.dataset.bclear];
@@ -1794,6 +2191,7 @@ document.addEventListener('click',e=>{
   if(e.target.id==='pickreset'){ pickedTargets().forEach(k=>{delete bannerBgps[k]; delete bannerVis[k];}); renderControls(); applyStyle(); return; }
   const pl=e.target.closest('[data-pl]'), pd=e.target.closest('[data-pd]');
   if(e.target.id==='presetsave'){ savePreset(); return; }
+  if(e.target.id==='szfilter'){ sizeFilter=!sizeFilter; renderGrid(); renderControls(); applyStyle(); return; }
   if(e.target.id==='shelfopen'){ openShelf(); return; }
   const tn=e.target.closest('[data-tone]'), tsA=e.target.closest('[data-taste]');
   if(tn){ curTone = (curTone===tn.dataset.tone) ? '' : tn.dataset.tone; renderControls(); return; }
@@ -1856,7 +2254,9 @@ document.addEventListener('click',e=>{
     showSpec('この配色のカラーコード', txt);
     return;
   }
-  if(sz){curSize=+sz.dataset.si; renderControls(); applyStyle(); return;}
+  if(sz){ const before=VIS.join(','); curSize=+sz.dataset.si;
+    refreshVis(); if(VIS.join(',')!==before) renderGrid();
+    renderControls(); applyStyle(); return;}
   const cz=e.target.closest('[data-cz]'), cc=e.target.closest('[data-cclear]');
   if(cz){cut.z=+cz.dataset.cz; renderControls(); applyStyle(); return;}
   if(cc){const r=+cc.dataset.cclear; rowCut[r]='none';
@@ -1973,7 +2373,7 @@ document.addEventListener('pointerdown',e=>{
   }
   const ph=bn.querySelector('.photo[data-bi]');
   if(!ph)return;
-  const dkey=`${r}-${ph.dataset.bi}`, dlkey=`${r}-${Math.floor(+ph.dataset.bi/LINE_COLS)}`;
+  const dkey=`${r}-${ph.dataset.bi}`, dlkey=`${r}-${lineOf(ph.dataset.bi)}`;
   if(rowImg[r]==='none' && !bannerImg[dkey] && !lineImg[dlkey])return;
   const rect=ph.getBoundingClientRect(), key=`${r}-${ph.dataset.bi}`;
   pending={el:ph,key,startX:e.clientX,startY:e.clientY,start:{...(imgPos[key]||{x:50,y:50})},w:rect.width||1,h:rect.height||1};
@@ -2131,7 +2531,7 @@ function pickedCards(){
 // 1枚のバナーを「完成＋素材」に分解
 function layerListFor(card){
   const r=+card.dataset.r, ti=+card.dataset.ti;
-  const key=`${r}-${ti}`, lkey=`${r}-${Math.floor(ti/LINE_COLS)}`;
+  const key=`${r}-${ti}`, lkey=`${r}-${lineOf(ti)}`;
   const hasPhoto = rowImg[r]!=='none' || !!bannerImg[key] || !!lineImg[lkey];
   const hasCut = rowCut[r]!=='none';
   const L=[{cls:'',name:'01_完成'}];
