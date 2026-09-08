@@ -9,10 +9,47 @@
   body{font:14px -apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif;background:#FBF6F7;color:#2E2329}
   img{max-width:100%}
   [hidden]:not([hidden="until-found"]){display:none!important}
+  /* 共通ナビの代わりに置く、戻るだけのバー（class="sitenav" があると build.py は共通ナビを入れない） */
+  .sitenav{position:sticky;top:0;z-index:9000;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:rgba(255,255,255,.97);border-bottom:1px solid #e3e7ec;padding:8px 12px;
+    font-family:'Zen Maru Gothic',system-ui,sans-serif}
+  .sitenav button,.sitenav input{font:inherit}
+  #backBtn{border:none;background:#2563eb;color:#fff;padding:6px 14px;border-radius:999px;
+    font-size:13px;font-weight:700;cursor:pointer}
+  #backBtn:hover{filter:brightness(1.06)}
+  #backForm{display:flex;align-items:center;gap:6px}
+  #backPw{width:130px;font-size:13px;padding:5px 9px;border:1.5px solid #e3e7ec;border-radius:8px}
+  #backPw:focus{outline:none;border-color:#2563eb}
+  #backGo{border:none;background:#2563eb;color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+  #backCancel{border:none;background:transparent;color:#6E5A62;font-size:13px;cursor:pointer;padding:6px 4px}
+  #backMsg{font-size:12px;color:#c0392b}
 </style>
 </head>
 <body>
-<nav class="sitenav" hidden aria-hidden="true"></nav>
+<nav class="sitenav">
+  <button id="backBtn" type="button">🐾 一覧に戻る</button>
+  <form id="backForm" hidden>
+    <input id="backPw" type="password" placeholder="パスワード" autocomplete="off" spellcheck="false">
+    <button id="backGo" type="submit">開く</button>
+    <button id="backCancel" type="button">やめる</button>
+    <span id="backMsg"></span>
+  </form>
+</nav>
+<script>
+(function(){
+  var PW='shimashima', TOP='../../index.html';
+  var b=document.getElementById('backBtn'), f=document.getElementById('backForm'),
+      i=document.getElementById('backPw'), c=document.getElementById('backCancel'),
+      m=document.getElementById('backMsg');
+  b.addEventListener('click',function(){ b.hidden=true; f.hidden=false; m.textContent=''; i.value=''; i.focus(); });
+  c.addEventListener('click',function(){ f.hidden=true; b.hidden=false; m.textContent=''; });
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(i.value.trim()===PW){ location.href=TOP; }
+    else { m.textContent='ちがうみたい'; i.select(); }
+  });
+})();
+</script>
 <title>バナーアタリボード</title>
 <meta name="description" content="型×配色×フォントを一気に並べて当たりを探す、バナーのアタリ出しボード">
 <link rel="preconnect" href="https://fonts.googleapis.com">

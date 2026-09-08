@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>バナー制作ポートフォリオ｜にゃんこの時空アトリエ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+  :root{
+    --accent:#2563eb; --accent-deep:#1d4ed8; --accent-soft:#e6efff;
+    --ink:#131820; --ink-2:#495264; --ink-3:#7a8393;
+    --bg:#f4f7fb; --bg-2:#e9eef6; --card:#ffffff; --line:#dde4ee; --line-2:#c9d3e2;
+    --shadow:0 1px 2px rgba(19,24,32,.04), 0 8px 24px rgba(30,58,120,.07);
+    --shadow-lift:0 12px 34px rgba(30,58,120,.14);
+    --radius:16px; --maxw:1080px;
+    --f-jp:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
+    --f-lat:"Manrope",var(--f-jp);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --accent:#5b8cff; --accent-deep:#7aa2ff; --accent-soft:#17233d;
+      --ink:#eef2f8; --ink-2:#aeb8c9; --ink-3:#7f8a9d;
+      --bg:#0d1017; --bg-2:#141a24; --card:#161c27; --line:#26303f; --line-2:#33405260;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+      --shadow-lift:0 16px 40px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --accent:#5b8cff; --accent-deep:#7aa2ff; --accent-soft:#17233d;
+    --ink:#eef2f8; --ink-2:#aeb8c9; --ink-3:#7f8a9d;
+    --bg:#0d1017; --bg-2:#141a24; --card:#161c27; --line:#26303f; --line-2:#33405260;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+    --shadow-lift:0 16px 40px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:var(--f-jp);color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;}
+  .eyebrow{font-family:var(--f-lat);font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);}
+
+  .backbar{background:var(--bg-2);border-bottom:1px solid var(--line);}
+  .backbar .wrap{padding:9px 24px;font-size:13px;}
+  .backbar a{color:var(--ink-2);font-weight:600;}
+  .backbar a:hover{color:var(--accent);}
+
+  .top{border-bottom:1px solid var(--line);background:var(--card);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;gap:16px;}
+  .brand{display:flex;align-items:baseline;gap:10px;}
+  .brand .mark{font-family:var(--f-lat);font-weight:800;font-size:15px;letter-spacing:.02em;}
+  .brand .mark b{color:var(--accent);}
+  .top nav{display:flex;gap:22px;font-size:13.5px;color:var(--ink-2);font-weight:500;}
+  .top nav a:hover{color:var(--accent);}
+  @media(max-width:640px){.top nav{display:none;}}
+
+  .hero{padding:60px 0 44px;}
+  .hero .lede{max-width:640px;}
+  .hero h1{font-size:clamp(30px,5.2vw,50px);font-weight:900;line-height:1.28;letter-spacing:.01em;margin:16px 0 18px;text-wrap:balance;}
+  .hero h1 .hl{color:var(--accent);background:linear-gradient(transparent 68%,var(--accent-soft) 0);padding:0 .05em;}
+  .hero p.sub{font-size:16.5px;color:var(--ink-2);margin:0 0 28px;max-width:60ch;}
+  .hero .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-lat);font-weight:700;font-size:14.5px;letter-spacing:.01em;padding:13px 24px;border-radius:999px;cursor:pointer;border:1.5px solid transparent;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;}
+  .btn.primary{background:var(--accent);color:#fff;box-shadow:var(--shadow);}
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);background:var(--accent-deep);}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-2);}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  .section{padding:44px 0;}
+  .section-head{margin-bottom:26px;}
+  .section-head h2{font-size:clamp(21px,3vw,27px);font-weight:800;margin:8px 0 6px;letter-spacing:.01em;}
+  .section-head p{color:var(--ink-2);font-size:15px;margin:0;max-width:62ch;}
+
+  .strengths{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media(max-width:760px){.strengths{grid-template-columns:1fr;}}
+  .st-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);}
+  .st-card .no{font-family:var(--f-lat);font-weight:800;font-size:13px;color:var(--accent);letter-spacing:.05em;}
+  .st-card h3{font-size:17.5px;font-weight:700;margin:12px 0 8px;}
+  .st-card p{font-size:14px;color:var(--ink-2);margin:0;}
+
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.gallery{grid-template-columns:1fr;}}
+  .work{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease;}
+  .work:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);}
+  .work .frame{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-2),var(--card));position:relative;border-bottom:1px solid var(--line);}
+  .work .frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  .work .ph{text-align:center;color:var(--ink-3);padding:20px;}
+  .work .ph .dim{font-family:var(--f-lat);font-weight:800;font-size:15px;color:var(--ink-2);letter-spacing:.03em;}
+  .work .ph .lbl{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:700;color:var(--ink-3);border:1px dashed var(--line-2);border-radius:999px;padding:3px 12px;}
+  .work .meta{padding:15px 18px 18px;}
+  .work .meta .tag{font-family:var(--f-lat);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);}
+  .work .meta h4{font-size:15.5px;font-weight:700;margin:6px 0 0;color:var(--ink);}
+  .gallery-note{margin-top:22px;font-size:13px;color:var(--ink-3);text-align:center;}
+
+  .specs{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:760px){.specs{grid-template-columns:1fr;}}
+  .spec-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px;box-shadow:var(--shadow);}
+  .spec-card h3{font-size:16px;font-weight:800;margin:0 0 14px;display:flex;align-items:center;gap:9px;}
+  .spec-card h3 .d{width:8px;height:8px;border-radius:2px;background:var(--accent);display:inline-block;}
+  .spec-list{list-style:none;margin:0;padding:0;}
+  .spec-list li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;}
+  .spec-list li:last-child{border-bottom:none;}
+  .spec-list li span:first-child{color:var(--ink-2);}
+  .spec-list li span:last-child{font-family:var(--f-lat);font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right;}
+
+  .contact{background:linear-gradient(135deg,var(--accent),var(--accent-deep));border-radius:22px;padding:46px 40px;text-align:center;color:#fff;box-shadow:var(--shadow-lift);}
+  .contact h2{font-size:clamp(22px,3.4vw,30px);font-weight:900;margin:0 0 10px;color:#fff;text-wrap:balance;}
+  .contact p{font-size:15px;margin:0 auto 22px;max-width:52ch;color:rgba(255,255,255,.9);}
+  .contact .soon{display:inline-block;font-family:var(--f-lat);font-weight:700;font-size:14px;color:#fff;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;padding:11px 22px;}
+
+  .foot{margin-top:56px;border-top:1px solid var(--line);padding:28px 0 44px;color:var(--ink-3);font-size:12.5px;}
+  .foot .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;}
+  .foot .ai{max-width:60ch;line-height:1.7;}
+</style>
+</head>
+<body>
+
+<div class="backbar">
+  <div class="wrap"><a href="../../index.html">← にゃんこの時空アトリエ にもどる</a></div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="mark"><b>&#9702;&#9700;</b> Banner Design</span></div>
+    <nav>
+      <a href="#works">制作サンプル</a>
+      <a href="#strengths">できること</a>
+      <a href="#specs">対応範囲</a>
+      <a href="#contact">ご相談</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="lede">
+      <span class="eyebrow">Banner Design Portfolio</span>
+      <h1>「見た目」だけでなく、<br><span class="hl">成果から逆算</span>して作るバナー。</h1>
+      <p class="sub">Webマーケティングの実務で、アクセス解析や広告のデータを見ながら改善する仕事をしてきました。その経験を活かして、"誰に・何を・どう伝えるか" を考えたバナーをお作りします。落ち着いた大人向けのトーンが得意です。</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#contact">ご相談について <span aria-hidden="true">&#8594;</span></a>
+        <a class="btn ghost" href="#works">制作サンプルを見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="strengths">
+    <div class="section-head">
+      <span class="eyebrow">What I can do</span>
+      <h2>3つの強み</h2>
+      <p>ただ作るだけでなく、続けて成果につながる形でお届けすることを大切にしています。</p>
+    </div>
+    <div class="strengths">
+      <div class="st-card"><span class="no">01</span><h3>成果を考えた設計</h3><p>アクセス解析（GA4）や広告データを見てきた経験から、目に留まる訴求とクリックされる導線を考えて設計します。</p></div>
+      <div class="st-card"><span class="no">02</span><h3>ていねいな作り込み</h3><p>文字組み・余白・配色を細部まで整えます。派手すぎず、信頼感のある大人向けのトーンが得意です。</p></div>
+      <div class="st-card"><span class="no">03</span><h3>展開・運用に対応</h3><p>同じ商品でサイズ違い・訴求違いを効率よく展開。1枚だけでなく、毎月の更新・継続運用もご相談いただけます。</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="works">
+    <div class="section-head">
+      <span class="eyebrow">Works</span>
+      <h2>制作サンプル</h2>
+      <p>現在サンプルを制作中です。順次このページに追加していきます。</p>
+    </div>
+    <div class="gallery">
+      <div class="work"><div class="frame"><div class="ph"><div class="dim">1080 &#215; 1080</div><span class="lbl">サンプル準備中</span></div></div><div class="meta"><span class="tag">SNS / 正方形</span><h4>準備中</h4></div></div>
+      <div class="work"><div class="frame"><div class="ph"><div class="dim">1080 &#215; 1080</div><span class="lbl">サンプル準備中</span></div></div><div class="meta"><span class="tag">SNS / 正方形</span><h4>準備中</h4></div></div>
+      <div class="work"><div class="frame"><div class="ph"><div class="dim">1200 &#215; 628</div><span class="lbl">サンプル準備中</span></div></div><div class="meta"><span class="tag">Web / 横長</span><h4>準備中</h4></div></div>
+      <div class="work"><div class="frame"><div class="ph"><div class="dim">1080 &#215; 1920</div><span class="lbl">サンプル準備中</span></div></div><div class="meta"><span class="tag">ストーリー / 縦長</span><h4>準備中</h4></div></div>
+      <div class="work"><div class="frame"><div class="ph"><div class="dim">1280 &#215; 720</div><span class="lbl">サンプル準備中</span></div></div><div class="meta"><span class="tag">サムネイル</span><h4>準備中</h4></div></div>
+      <div class="work"><div class="frame"><div class="ph"><div class="dim">お好みのサイズ</div><span class="lbl">サンプル準備中</span></div></div><div class="meta"><span class="tag">その他</span><h4>準備中</h4></div></div>
+    </div>
+    <p class="gallery-note">&#8251; 掲載しているものは制作サンプル（自主制作）です。</p>
+  </section>
+
+  <section class="section" id="specs">
+    <div class="section-head">
+      <span class="eyebrow">Details</span>
+      <h2>対応範囲</h2>
+      <p>下記は目安です。内容・枚数に合わせて柔軟にご相談いただけます。</p>
+    </div>
+    <div class="specs">
+      <div class="spec-card">
+        <h3><span class="d"></span>対応サイズ</h3>
+        <ul class="spec-list">
+          <li><span>SNS 正方形</span><span>1080 &#215; 1080</span></li>
+          <li><span>SNS ストーリー / 縦長</span><span>1080 &#215; 1920</span></li>
+          <li><span>Web バナー / 横長</span><span>1200 &#215; 628 ほか</span></li>
+          <li><span>ブログ・サイトヘッダー</span><span>ご相談</span></li>
+          <li><span>サムネイル</span><span>1280 &#215; 720</span></li>
+        </ul>
+      </div>
+      <div class="spec-card">
+        <h3><span class="d"></span>制作の進め方</h3>
+        <ul class="spec-list">
+          <li><span>ヒアリング</span><span>目的・ターゲット確認</span></li>
+          <li><span>ご提案</span><span>ラフ &#8594; 制作</span></li>
+          <li><span>修正</span><span>回数は応相談</span></li>
+          <li><span>展開</span><span>サイズ・訴求違い</span></li>
+          <li><span>納品形式</span><span>PNG / JPG ほか</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="contact">
+      <h2>まずはお気軽にご相談ください</h2>
+      <p>「こんなバナーが作れる？」というご相談だけでも歓迎です。目的とご予算に合わせてご提案します。</p>
+      <span class="soon">お問い合わせ先は近日公開予定です</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>&#169; Banner Design Portfolio</span>
+    <span class="ai">画像・イラスト等のクリエイティブの一部は、生成AIを使用して制作しています。</span>
+  </div>
+</footer>
+</body>
+</html>
