@@ -89,6 +89,41 @@
             </fieldset>
           </div>
         </section>
+        <section class="autoplay-settings" aria-labelledby="autoplaySettingsTitle">
+          <div class="autoplay-settings__heading">
+            <div>
+              <p class="autoplay-settings__eyebrow">自動めくり</p>
+              <h2 class="autoplay-settings__title" id="autoplaySettingsTitle">考える時間をつくる</h2>
+            </div>
+            <p class="autoplay-status" id="autoplayStatus" aria-live="polite">停止中</p>
+          </div>
+          <div class="autoplay-settings__body">
+            <div class="autoplay-time-controls">
+              <label class="autoplay-time-control" for="autoplayThinkTime">
+                <span>考える時間</span>
+                <select id="autoplayThinkTime">
+                  <option value="3000">3秒</option>
+                  <option value="5000" selected>5秒</option>
+                  <option value="10000">10秒</option>
+                </select>
+              </label>
+              <label class="autoplay-time-control" for="autoplayAnswerTime">
+                <span>答えを見る時間</span>
+                <select id="autoplayAnswerTime">
+                  <option value="3000">3秒</option>
+                  <option value="5000" selected>5秒</option>
+                  <option value="10000">10秒</option>
+                </select>
+              </label>
+            </div>
+            <div class="autoplay-actions" aria-label="自動めくりの操作">
+              <button class="autoplay-button autoplay-button--start" id="autoplayStartButton" type="button">▶ 自動で進む</button>
+              <button class="autoplay-button" id="autoplayPauseButton" type="button" disabled>⏸ 一時停止</button>
+              <button class="autoplay-button autoplay-button--stop" id="autoplayStopButton" type="button" disabled>■ 停止</button>
+            </div>
+          </div>
+          <p class="autoplay-hint">自動めくり中にカードをタップしたり、前へ・次へを押すと一時停止します。</p>
+        </section>
         <div class="card-stage">
           <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="カードをめくる。表面を表示中">
             <div class="card-face card-face--front">
