@@ -144,7 +144,8 @@ def build_work(folder):
         "date": date,
         "cover": None,
         "sort": (date, name),
-        "staff": (folder / "staff.txt").exists(),  # staff.txt があれば「自分用」＝一番下の別セクションへ
+        "staff": (folder / "staff.txt").exists(),
+        "noindex": (folder / "noindex.txt").exists(),  # noindex.txt があれば「検索に出さない」（その作品のページだけ）  # staff.txt があれば「自分用」＝一番下の別セクションへ
         "wip": (folder / "wip.txt").exists(),  # wip.txt があれば「準備中」表示（画像を出さない・リンクしない）
     }
 
@@ -274,11 +275,16 @@ def gtm_body(gid):
     )
 
 
-def inject_analytics(html_text, cfg):
+def inject_analytics(html_text, cfg, page_noindex=False):
     """GTM・GA4・Clarity をまとめて注入（GTMは<head>と<body>直後）。
     noindex=true のときは「検索に出さない」metaも全ページに入れる（テスト用サイト向け）"""
-    noindex = ('<meta name="robots" content="noindex,nofollow">\n'
-               if cfg.get("noindex") else "")
+    if cfg.get("noindex"):
+        noindex = '<meta name="robots" content="noindex,nofollow">\n'
+    elif page_noindex:
+        # 作品フォルダに noindex.txt があるページだけ「検索に出さない」
+        noindex = '<meta name="robots" content="noindex">\n'
+    else:
+        noindex = ""
     head = (noindex
             + gtm_head(cfg.get("gtm_id", ""))
             + ga4_snippet(cfg.get("ga4_id", ""))
@@ -499,7 +505,7 @@ def copy_works(works):
             shutil.rmtree(dst)
         shutil.copytree(src, dst, ignore=shutil.ignore_patterns(
             "title.txt", "about.txt", "description.txt", "desc.txt",
-            "link.txt", "date.txt", "staff.txt", "wip.txt"))
+            "link.txt", "date.txt", "staff.txt", "wip.txt", "noindex.txt"))
         for htmlfile in dst.rglob("*.html"):
             try:
                 txt = htmlfile.read_text(encoding="utf-8")
@@ -512,7 +518,7 @@ def copy_works(works):
                         txt = txt.replace("<body>", "<body>\n" + nav, 1)
                     else:
                         txt = nav + txt
-                txt = inject_analytics(txt, CONFIG)
+                txt = inject_analytics(txt, CONFIG, page_noindex=w.get("noindex", False))
                 htmlfile.write_text(txt, encoding="utf-8")
             except Exception as e:
                 print(f"  ! ページ加工に失敗: {htmlfile} ({e})")
@@ -610,7 +616,7 @@ def build_gallery_pages(works):
                 accent=CONFIG.get("accent", "#e9a0a0"),
                 sitenav=nav_html(works, "../../"),
             )
-            txt = inject_analytics(txt, CONFIG)
+            txt = inject_analytics(txt, CONFIG, page_noindex=w.get("noindex", False))
             dst.write_text(txt, encoding="utf-8")
             continue
         if w.get("type") != "gallery":
@@ -628,7 +634,7 @@ def build_gallery_pages(works):
             sitenav=nav,
             shots=shots,
         )
-        txt = inject_analytics(txt, CONFIG)
+        txt = inject_analytics(txt, CONFIG, page_noindex=w.get("noindex", False))
         dst.write_text(txt, encoding="utf-8")
 
 
@@ -1005,6 +1011,8 @@ def main():
     if site_url and not CONFIG.get("noindex"):
         locs = [site_url + "/"]
         for w in works:
+            if w.get("noindex"):
+                continue  # noindex.txt の作品は sitemap に載せない
             if w["type"] in ("page", "gallery"):
                 locs.append(site_url + "/" + url_path("works", w["name"]) + "/")
         sm = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -1017,6 +1025,8 @@ def main():
     # llms.txt（AI検索/AIO向けの、サイト内容の要約）
     llms = [f"# {CONFIG['site_title']}", CONFIG.get("intro", ""), "", "## 作品一覧"]
     for w in works:
+        if w.get("noindex"):
+            continue  # noindex.txt の作品は llms.txt に載せない
         d = w.get("desc", "").strip()
         llms.append(f"- {w['title']}" + (f"：{d}" if d else ""))
     (OUT / "llms.txt").write_text("\n".join(llms) + "\n", encoding="utf-8")
