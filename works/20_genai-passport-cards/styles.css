@@ -253,6 +253,114 @@ select {
 .speak-button:active { transform: translateY(1px); }
 .speak-button:disabled { cursor: not-allowed; opacity: .38; filter: grayscale(1); transform: none; }
 
+.autoplay-settings {
+  margin-bottom: 22px;
+  padding: 18px 20px 17px;
+  border: 1px solid rgba(200, 222, 233, .9);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 8px 25px rgba(23, 54, 93, .05);
+}
+
+.autoplay-settings__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.autoplay-settings__eyebrow {
+  margin: 0 0 4px;
+  color: var(--cream-deep);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.autoplay-settings__title {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.15rem;
+  letter-spacing: -.03em;
+}
+
+.autoplay-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.autoplay-settings__body {
+  display: grid;
+  grid-template-columns: minmax(250px, .9fr) minmax(300px, 1.1fr);
+  align-items: end;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.autoplay-time-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.autoplay-time-control {
+  display: block;
+  color: var(--navy);
+  font-size: .76rem;
+  font-weight: 900;
+}
+
+.autoplay-time-control span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.autoplay-time-control select { min-height: 44px; }
+
+.autoplay-actions {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr .8fr;
+  gap: 8px;
+}
+
+.autoplay-button {
+  min-height: 47px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: var(--navy);
+  background: white;
+  font-size: .82rem;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.autoplay-button--start {
+  border-color: var(--navy);
+  color: white;
+  background: var(--navy);
+  box-shadow: 0 8px 18px rgba(23, 54, 93, .14);
+}
+
+.autoplay-button--stop { color: #80550b; border-color: #dfc37d; background: #fffdf6; }
+.autoplay-button:hover, .autoplay-button:focus-visible { border-color: #8fbdcf; background: var(--sky); transform: translateY(-1px); }
+.autoplay-button--start:hover, .autoplay-button--start:focus-visible { border-color: var(--navy-2); color: white; background: var(--navy-2); }
+.autoplay-button--stop:hover, .autoplay-button--stop:focus-visible { border-color: #c9851a; background: #fff1d6; }
+.autoplay-button:active { transform: translateY(1px); }
+.autoplay-button:disabled { cursor: not-allowed; opacity: .4; transform: none; }
+
+.autoplay-hint {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: .76rem;
+  line-height: 1.5;
+}
+
 .card-stage { perspective: 1300px; }
 
 .flashcard {
@@ -491,6 +599,15 @@ h2 {
   .speech-settings__controls { grid-template-columns: 1fr; gap: 13px; }
   .speech-mode-options, .speech-parts-options { grid-template-columns: 1fr; }
   .speech-option { min-height: 48px; padding: 8px 10px; }
+  .autoplay-settings { padding: 16px 14px 17px; }
+  .autoplay-settings__heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .autoplay-status { text-align: left; }
+  .autoplay-settings__body { grid-template-columns: 1fr; gap: 13px; }
+  .autoplay-time-controls { gap: 9px; }
+  .autoplay-time-control select { min-height: 48px; }
+  .autoplay-actions { grid-template-columns: 1fr 1fr; gap: 9px; }
+  .autoplay-button { min-height: 49px; padding: 0 8px; }
+  .autoplay-button--start { grid-column: 1 / -1; }
   .study-area { padding-top: 16px; }
   .flashcard { min-height: 590px; }
   .card-content { grid-template-columns: 1fr; gap: 16px; padding: 24px 20px 16px; }
@@ -512,5 +629,5 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flashcard, .progress-track span, .nav-button, .flip-button, .speak-button { transition: none; }
+  .flashcard, .progress-track span, .nav-button, .flip-button, .speak-button, .autoplay-button { transition: none; }
 }
