@@ -19,7 +19,7 @@ main に push されると GitHub Actions が `build.py` を実行して自動�
 ## サイトの基本ルール
 - **公開/非公開**：フォルダ・ファイル名の頭に `_` を付けたら**完全非公開**（サイトにもGitHubにも出ない。`.gitignore` で除外）。
 - **カードの種類**は中身で自動判定：`link.txt`=外部リンク / `index.html`=自作ページ / 画像=ギャラリー / PDF=PDF。
-- 任意ファイル：`title.txt`（タイトル）/ `about.txt`（説明文）/ `cover.svg`・`cover.png`（サムネ）/ `date.txt` / `wip.txt`（準備中表示）/ `staff.txt`（自分用セクションへ）。
+- 任意ファイル：`title.txt`（タイトル）/ `about.txt`（説明文）/ `cover.svg`・`cover.png`（サムネ）/ `date.txt` / `wip.txt`（準備中表示）/ `staff.txt`（自分用セクションへ）/ `noindex.txt`（その作品だけ検索に出さない）。
 - **並び順**＝フォルダ名の先頭の数字（大きいほど上）。
 - 各作品ページには**共通の「一覧に戻る」ボタン**がビルド時に自動で入る（作品側に自分で書かない）。
 - 計測・SEOの設定は `config.json`。
