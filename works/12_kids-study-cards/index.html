@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17365d" />
+    <meta name="description" content="生成AIパスポート 第1章を、1枚ずつめくって覚える一問一答カード" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>生成AIパスポート｜第1章 一問一答カード</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">生成AIパスポート</p>
+          <h1>第1章 <span>絵で覚える一問一答</span></h1>
+        </div>
+        <div class="header-note" aria-label="使い方">
+          <span class="header-note__dot" aria-hidden="true"></span>
+          <span>問題を見てから、カードをめくる</span>
+        </div>
+      </header>
+
+      <section class="control-bar" aria-label="カード操作">
+        <label class="select-wrap">
+          <span class="visually-hidden">表示する節</span>
+          <select id="groupSelect"></select>
+        </label>
+        <div class="progress-wrap" aria-live="polite">
+          <span id="progressLabel">001 / 209</span>
+          <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+        </div>
+        <button class="quiet-button" id="resetButton" type="button">最初から</button>
+        <button class="quiet-button" id="clearHiddenButton" type="button">隠しカードを戻す</button>
+      </section>
+
+      <section class="study-area" aria-label="一問一答カード">
+        <div class="card-stage">
+          <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="カードをめくる。表面を表示中">
+            <div class="card-face card-face--front">
+              <div class="card-topline">
+                <span class="card-section" id="frontGroup">第1章</span>
+                <span class="card-number" id="frontNumber">001</span>
+              </div>
+              <div class="card-content">
+                <div class="prompt-block">
+                  <span class="micro-label" id="frontTag">問題</span>
+                  <h2 id="question">読み込み中…</h2>
+                  <p class="tap-hint">タップ／クリックで答えを見る</p>
+                </div>
+                <div class="image-frame">
+                  <img id="cardImage" src="" alt="問題の理解を助けるイラスト" />
+                </div>
+              </div>
+              <div class="card-footer"><span>表｜QUESTION</span><span>右側を隠す感覚で</span></div>
+            </div>
+
+            <div class="card-face card-face--back" aria-hidden="true">
+              <div class="card-topline">
+                <span class="card-section" id="backGroup">第1章</span>
+                <span class="card-number" id="backNumber">001</span>
+              </div>
+              <div class="answer-content">
+                <span class="micro-label micro-label--answer">答え</span>
+                <p class="answer" id="answer">—</p>
+                <p class="answer-detail" id="answerDetail"></p>
+              </div>
+              <div class="card-footer"><span>裏｜ANSWER</span><span>タップで問題に戻る</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <p class="empty-state__title">この条件のカードはありません</p>
+          <p class="empty-state__copy">隠したカードは「隠したカード」から確認できます。</p>
+          <button class="flip-button" id="emptyResetButton" type="button">隠したカードをすべて戻す</button>
+        </div>
+
+        <div class="navigation" aria-label="前後のカードへ移動">
+          <button class="nav-button" id="prevButton" type="button" aria-label="前のカード">← <span>前へ</span></button>
+          <button class="flip-button" id="flipButton" type="button">答えを見る</button>
+          <button class="nav-button" id="nextButton" type="button" aria-label="次のカード"><span>次へ</span> →</button>
+        </div>
+        <div class="card-actions" aria-label="自分用のカード設定">
+          <button class="card-action" id="importantButton" type="button">☆ 重要にする</button>
+          <button class="card-action" id="hideButton" type="button">このカードを隠す</button>
+          <button class="card-action" id="sourceButton" type="button">参照元を見る</button>
+        </div>
+        <aside class="source-panel" id="sourcePanel" hidden>
+          <div class="source-panel__heading">
+            <div>
+              <p class="source-panel__eyebrow">参照元</p>
+              <h2 class="source-panel__title">このカードの出典</h2>
+            </div>
+            <button class="source-panel__close" id="sourceCloseButton" type="button" aria-label="参照元を閉じる">×</button>
+          </div>
+          <p class="source-panel__current" id="sourceCurrent">第1章</p>
+          <p class="source-panel__copy">カードの内容は、添付教材「1章 (2).docx」の章・節の順番を保って作成しています。公開ページには原教材ファイルを置かず、参照元の名前と該当箇所を確認できるようにしています。</p>
+          <div class="source-links">
+            <a href="./chapter1-cards.pdf" target="_blank" rel="noopener">カード一覧を見る（PDF）</a>
+            <a href="https://genai-passport-ch1-flashcards.hushedyew1.chatgpt.site" target="_blank" rel="noopener">参照元を確認（個人用アプリ）</a>
+          </div>
+        </aside>
+        <p class="keyboard-hint">← → で移動　<span>・</span>　スペースでめくる</p>
+      </section>
+
+      <footer class="app-footer">
+        <span>全209枚｜第1章の本文・確認問題を収録</span>
+        <span>隠す・重要マーク・進み具合はこの端末に保存されます</span>
+      </footer>
+    </main>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
