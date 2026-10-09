@@ -7,11 +7,22 @@
     group: "all",
     hidden: new Set(),
     important: new Set(),
+    speechMode: "text",
+    speechRate: "normal",
+    speechParts: {
+      question: true,
+      answer: true,
+      detail: true,
+    },
   };
 
   const $ = (id) => document.getElementById(id);
   const STORAGE_KEY = "genai-passport-ch1-card-settings-v2";
   const OLD_STORAGE_KEY = "genai-passport-ch1-card-position";
+  const SPEECH_STORAGE_KEY = "genai-passport-ch1-speech-settings-v1";
+  const SPEECH_RATES = { slow: 0.75, normal: 1, fast: 1.25 };
+  const speechSupported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+  let speechRequestId = 0;
 
   const cardStage = document.querySelector(".card-stage");
   const flashcard = $("flashcard");
@@ -28,6 +39,8 @@
   const answer = $("answer");
   const answerDetail = $("answerDetail");
   const cardImage = $("cardImage");
+  const questionSpeakButton = $("questionSpeakButton");
+  const answerSpeakButton = $("answerSpeakButton");
   const flipButton = $("flipButton");
   const prevButton = $("prevButton");
   const nextButton = $("nextButton");
@@ -37,6 +50,14 @@
   const sourcePanel = $("sourcePanel");
   const sourceCurrent = $("sourceCurrent");
   const clearHiddenButton = $("clearHiddenButton");
+  const speechStatus = $("speechStatus");
+  const speechModeInputs = [...document.querySelectorAll('input[name="speechMode"]')];
+  const speechRateSelect = $("speechRate");
+  const speechPartInputs = {
+    question: $("speechPartQuestion"),
+    answer: $("speechPartAnswer"),
+    detail: $("speechPartDetail"),
+  };
 
   const cardId = (allIndex) => String(allIndex + 1).padStart(3, "0");
   const currentCard = () => state.filtered[state.index];
@@ -45,12 +66,46 @@
 
   function saveState() {
     const allIndex = currentAllIndex();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      hidden: [...state.hidden],
-      important: [...state.important],
-      allIndex: allIndex >= 0 ? allIndex : 0,
-      group: state.group,
-    }));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        hidden: [...state.hidden],
+        important: [...state.important],
+        allIndex: allIndex >= 0 ? allIndex : 0,
+        group: state.group,
+      }));
+    } catch (_) {
+      // Safariのプライベートブラウズなど、localStorageが使えない場合も学習は続ける。
+    }
+  }
+
+  function saveSpeechSettings() {
+    try {
+      localStorage.setItem(SPEECH_STORAGE_KEY, JSON.stringify({
+        mode: state.speechMode,
+        rate: state.speechRate,
+        parts: state.speechParts,
+      }));
+    } catch (_) {
+      // 設定の保存に失敗しても、現在のページでは設定を使い続ける。
+    }
+  }
+
+  function loadSpeechSettings() {
+    let saved = null;
+    try {
+      saved = JSON.parse(localStorage.getItem(SPEECH_STORAGE_KEY) || "null");
+    } catch (_) {
+      saved = null;
+    }
+    if (!saved || typeof saved !== "object") return;
+
+    if (["text", "manual", "auto"].includes(saved.mode)) state.speechMode = saved.mode;
+    if (Object.prototype.hasOwnProperty.call(SPEECH_RATES, saved.rate)) state.speechRate = saved.rate;
+    if (saved.parts && typeof saved.parts === "object") {
+      Object.keys(state.speechParts).forEach((part) => {
+        if (typeof saved.parts[part] === "boolean") state.speechParts[part] = saved.parts[part];
+      });
+    }
   }
 
   function loadState() {
@@ -71,6 +126,131 @@
     };
   }
 
+  function currentCardIsHidden() {
+    const allIndex = currentAllIndex();
+    return allIndex >= 0 && state.hidden.has(cardId(allIndex));
+  }
+
+  function speechValue(value) {
+    return typeof value === "string" ? value.trim() : "";
+  }
+
+  function speechTextForPart(card, part) {
+    if (!card) return "";
+    const chunks = [];
+    if (part === "question" && state.speechParts.question) {
+      const value = speechValue(card.q);
+      if (value) chunks.push(`問題。${value}`);
+    }
+    if (part === "answer" && state.speechParts.answer) {
+      const value = speechValue(card.a);
+      if (value) chunks.push(`答え。${value}`);
+    }
+    if (state.speechParts.detail) {
+      const value = speechValue(card.detail);
+      if (value) chunks.push(`補足。${value}`);
+    }
+    return chunks.join("\n");
+  }
+
+  function updateSpeechStatus() {
+    if (!speechSupported) {
+      speechStatus.textContent = "このブラウザでは読み上げを利用できません。";
+      return;
+    }
+    if (state.speechMode === "text") {
+      speechStatus.textContent = "文字だけモードです（読み上げオフ）。";
+    } else if (state.speechMode === "manual") {
+      speechStatus.textContent = "手動読み上げ：カードの🔊ボタンで読みます。";
+    } else {
+      speechStatus.textContent = "自動読み上げ：カードを開くと問題、めくると答えを読みます。";
+    }
+  }
+
+  function updateSpeechControls() {
+    speechModeInputs.forEach((input) => {
+      input.checked = input.value === state.speechMode;
+      input.disabled = !speechSupported;
+    });
+    speechRateSelect.value = state.speechRate;
+    speechRateSelect.disabled = !speechSupported;
+    Object.entries(speechPartInputs).forEach(([part, input]) => {
+      input.checked = state.speechParts[part];
+      input.disabled = !speechSupported;
+    });
+
+    const card = currentCard();
+    const speechDisabled = !speechSupported || state.speechMode === "text" || !card || currentCardIsHidden();
+    questionSpeakButton.disabled = speechDisabled || !speechTextForPart(card, "question");
+    answerSpeakButton.disabled = speechDisabled || !speechTextForPart(card, "answer");
+    updateSpeechStatus();
+  }
+
+  function stopSpeech() {
+    speechRequestId += 1;
+    if (speechSupported) window.speechSynthesis.cancel();
+  }
+
+  function scheduleAutoSpeech(part) {
+    if (!speechSupported || state.speechMode !== "auto" || !currentCard() || currentCardIsHidden()) return;
+    const requestId = ++speechRequestId;
+    window.setTimeout(() => {
+      if (requestId !== speechRequestId || state.speechMode !== "auto") return;
+      speakPart(part);
+    }, 0);
+  }
+
+  function speakPart(part) {
+    const card = currentCard();
+    if (!speechSupported || state.speechMode === "text" || !card || currentCardIsHidden()) return;
+    const text = speechTextForPart(card, part);
+    if (!text) return;
+
+    stopSpeech();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    utterance.rate = SPEECH_RATES[state.speechRate];
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    const requestId = speechRequestId;
+    utterance.onend = () => {
+      if (requestId === speechRequestId) updateSpeechStatus();
+    };
+    utterance.onerror = () => {
+      if (requestId === speechRequestId) updateSpeechStatus();
+    };
+    try {
+      window.speechSynthesis.speak(utterance);
+    } catch (_) {
+      updateSpeechStatus();
+    }
+  }
+
+  function setSpeechMode(mode) {
+    if (!["text", "manual", "auto"].includes(mode)) return;
+    state.speechMode = mode;
+    saveSpeechSettings();
+    stopSpeech();
+    updateSpeechControls();
+    if (mode === "auto") scheduleAutoSpeech(state.flipped ? "answer" : "question");
+  }
+
+  function setSpeechRate(rate) {
+    if (!Object.prototype.hasOwnProperty.call(SPEECH_RATES, rate)) return;
+    state.speechRate = rate;
+    saveSpeechSettings();
+    stopSpeech();
+    updateSpeechControls();
+  }
+
+  function setSpeechPart(part, enabled) {
+    if (!Object.prototype.hasOwnProperty.call(state.speechParts, part)) return;
+    state.speechParts[part] = enabled;
+    saveSpeechSettings();
+    stopSpeech();
+    updateSpeechControls();
+  }
+
   function filteredCards(group) {
     if (group === "hidden") {
       return state.cards.filter((_, index) => state.hidden.has(cardId(index)));
@@ -84,7 +264,7 @@
     });
   }
 
-  function setFlipped(flipped) {
+  function setFlipped(flipped, { announce = true } = {}) {
     if (!currentCard()) return;
     state.flipped = flipped;
     flashcard.classList.toggle("is-flipped", flipped);
@@ -92,12 +272,19 @@
     document.querySelector(".card-face--front").setAttribute("aria-hidden", String(flipped));
     document.querySelector(".card-face--back").setAttribute("aria-hidden", String(!flipped));
     flipButton.textContent = flipped ? "問題に戻る" : "答えを見る";
+    if (announce) scheduleAutoSpeech(flipped ? "answer" : "question");
   }
 
   function setButtonsDisabled(disabled) {
     [flipButton, prevButton, nextButton, importantButton, hideButton, sourceButton].forEach((button) => {
       button.disabled = disabled;
     });
+    if (disabled) {
+      questionSpeakButton.disabled = true;
+      answerSpeakButton.disabled = true;
+    } else {
+      updateSpeechControls();
+    }
   }
 
   function updateActionLabels(allIndex) {
@@ -111,6 +298,7 @@
   }
 
   function renderEmpty() {
+    stopSpeech();
     cardStage.hidden = true;
     emptyState.hidden = false;
     progressLabel.textContent = "0 / 0枚";
@@ -127,6 +315,7 @@
       return;
     }
 
+    stopSpeech();
     cardStage.hidden = false;
     emptyState.hidden = true;
     setButtonsDisabled(false);
@@ -149,9 +338,11 @@
     nextButton.disabled = state.index === state.filtered.length - 1;
     updateActionLabels(allIndex);
     sourceCurrent.textContent = `${card.group}｜カード ${number}`;
-    setFlipped(false);
+    setFlipped(false, { announce: false });
     clearHiddenButton.disabled = state.hidden.size === 0;
+    updateSpeechControls();
     saveState();
+    scheduleAutoSpeech("question");
   }
 
   function populateGroups() {
@@ -258,6 +449,8 @@
   }
 
   function start() {
+    loadSpeechSettings();
+    updateSpeechControls();
     fetch("./cards.json")
       .then((response) => {
         if (!response.ok) throw new Error("cards.json could not be loaded");
@@ -277,12 +470,21 @@
 
   flashcard.addEventListener("click", () => setFlipped(!state.flipped));
   flashcard.addEventListener("keydown", (event) => {
+    if (event.target !== flashcard) return;
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       setFlipped(!state.flipped);
     }
   });
   flipButton.addEventListener("click", () => setFlipped(!state.flipped));
+  questionSpeakButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    speakPart("question");
+  });
+  answerSpeakButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    speakPart("answer");
+  });
   prevButton.addEventListener("click", () => move(-1));
   nextButton.addEventListener("click", () => move(1));
   importantButton.addEventListener("click", toggleImportant);
@@ -293,6 +495,13 @@
   $("resetButton").addEventListener("click", resetPosition);
   clearHiddenButton.addEventListener("click", clearHidden);
   $("emptyResetButton").addEventListener("click", clearHidden);
+  speechModeInputs.forEach((input) => {
+    input.addEventListener("change", (event) => setSpeechMode(event.target.value));
+  });
+  speechRateSelect.addEventListener("change", (event) => setSpeechRate(event.target.value));
+  Object.entries(speechPartInputs).forEach(([part, input]) => {
+    input.addEventListener("change", (event) => setSpeechPart(part, event.target.checked));
+  });
 
   document.addEventListener("keydown", (event) => {
     if (event.target.matches("select, input, textarea, button, a")) return;

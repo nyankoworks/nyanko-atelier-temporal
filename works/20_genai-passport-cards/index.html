@@ -36,6 +36,59 @@
       </section>
 
       <section class="study-area" aria-label="一問一答カード">
+        <section class="speech-settings" aria-labelledby="speechSettingsTitle">
+          <div class="speech-settings__heading">
+            <div>
+              <p class="speech-settings__eyebrow">読み上げ設定</p>
+              <h2 class="speech-settings__title" id="speechSettingsTitle">声で覚える</h2>
+            </div>
+            <p class="speech-status" id="speechStatus" aria-live="polite">初期状態：文字だけ（オフ）</p>
+          </div>
+          <div class="speech-settings__controls">
+            <fieldset class="speech-control speech-mode-control">
+              <legend>読み上げモード</legend>
+              <div class="speech-mode-options">
+                <label class="speech-option">
+                  <input type="radio" name="speechMode" value="text" checked />
+                  <span>文字だけ（オフ）</span>
+                </label>
+                <label class="speech-option">
+                  <input type="radio" name="speechMode" value="manual" />
+                  <span>手動で読む</span>
+                </label>
+                <label class="speech-option">
+                  <input type="radio" name="speechMode" value="auto" />
+                  <span>自動読み上げ</span>
+                </label>
+              </div>
+            </fieldset>
+            <label class="speech-control speech-rate-control" for="speechRate">
+              <span>読むスピード</span>
+              <select id="speechRate">
+                <option value="slow">ゆっくり</option>
+                <option value="normal" selected>ふつう</option>
+                <option value="fast">はやい</option>
+              </select>
+            </label>
+            <fieldset class="speech-control speech-parts-control">
+              <legend>読む中身</legend>
+              <div class="speech-parts-options">
+                <label class="speech-option">
+                  <input type="checkbox" id="speechPartQuestion" checked />
+                  <span>問題</span>
+                </label>
+                <label class="speech-option">
+                  <input type="checkbox" id="speechPartAnswer" checked />
+                  <span>答え</span>
+                </label>
+                <label class="speech-option">
+                  <input type="checkbox" id="speechPartDetail" checked />
+                  <span>補足（detail）</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </section>
         <div class="card-stage">
           <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="カードをめくる。表面を表示中">
             <div class="card-face card-face--front">
@@ -46,7 +99,10 @@
               <div class="card-content">
                 <div class="prompt-block">
                   <span class="micro-label" id="frontTag">問題</span>
-                  <h2 id="question">読み込み中…</h2>
+                  <div class="prompt-title-row">
+                    <h2 id="question">読み込み中…</h2>
+                    <button class="speak-button" id="questionSpeakButton" type="button" aria-label="問題を読み上げる" title="問題を読み上げる">🔊</button>
+                  </div>
                   <p class="tap-hint">タップ／クリックで答えを見る</p>
                 </div>
                 <div class="image-frame">
@@ -63,7 +119,10 @@
               </div>
               <div class="answer-content">
                 <span class="micro-label micro-label--answer">答え</span>
-                <p class="answer" id="answer">—</p>
+                <div class="answer-title-row">
+                  <p class="answer" id="answer">—</p>
+                  <button class="speak-button" id="answerSpeakButton" type="button" aria-label="答えを読み上げる" title="答えを読み上げる">🔊</button>
+                </div>
                 <p class="answer-detail" id="answerDetail"></p>
               </div>
               <div class="card-footer"><span>裏｜ANSWER</span><span>タップで問題に戻る</span></div>

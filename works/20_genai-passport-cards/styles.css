@@ -123,6 +123,136 @@ select {
 
 .study-area { padding: 26px 0 16px; }
 
+.speech-settings {
+  margin-bottom: 22px;
+  padding: 18px 20px 20px;
+  border: 1px solid rgba(200, 222, 233, .9);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 8px 25px rgba(23, 54, 93, .05);
+}
+
+.speech-settings__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.speech-settings__eyebrow {
+  margin: 0 0 4px;
+  color: var(--cream-deep);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.speech-settings__title {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.15rem;
+  letter-spacing: -.03em;
+}
+
+.speech-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.speech-settings__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(145px, .5fr) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.speech-control {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.speech-control legend,
+.speech-rate-control > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: .76rem;
+  font-weight: 900;
+}
+
+.speech-mode-options,
+.speech-parts-options {
+  display: grid;
+  gap: 8px;
+}
+
+.speech-mode-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.speech-parts-options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.speech-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--navy);
+  background: rgba(234, 246, 251, .52);
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.speech-option:focus-within { border-color: #8fbdcf; box-shadow: 0 0 0 3px rgba(91, 158, 192, .18); }
+.speech-option input { width: 18px; height: 18px; flex: 0 0 auto; margin: 0; accent-color: var(--navy); }
+.speech-rate-control select { min-height: 44px; }
+
+.prompt-title-row,
+.answer-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.prompt-title-row h2,
+.answer-title-row .answer {
+  min-width: 0;
+  flex: 1;
+}
+
+.speak-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  margin-top: 16px;
+  padding: 0;
+  border: 1px solid #8fbdcf;
+  border-radius: 13px;
+  color: var(--navy);
+  background: rgba(255, 255, 255, .78);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.answer-title-row .speak-button { margin-top: 22px; }
+.speak-button:hover, .speak-button:focus-visible { border-color: var(--navy); background: white; transform: translateY(-1px); }
+.speak-button:active { transform: translateY(1px); }
+.speak-button:disabled { cursor: not-allowed; opacity: .38; filter: grayscale(1); transform: none; }
+
 .card-stage { perspective: 1300px; }
 
 .flashcard {
@@ -355,12 +485,21 @@ h2 {
   .control-bar { grid-template-columns: 1fr; gap: 10px; }
   .progress-wrap { padding: 2px 2px 0; }
   .quiet-button { justify-self: end; padding: 3px 5px; }
+  .speech-settings { padding: 16px 14px 17px; }
+  .speech-settings__heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .speech-status { text-align: left; }
+  .speech-settings__controls { grid-template-columns: 1fr; gap: 13px; }
+  .speech-mode-options, .speech-parts-options { grid-template-columns: 1fr; }
+  .speech-option { min-height: 48px; padding: 8px 10px; }
   .study-area { padding-top: 16px; }
   .flashcard { min-height: 590px; }
   .card-content { grid-template-columns: 1fr; gap: 16px; padding: 24px 20px 16px; }
   .prompt-block { max-width: none; }
   h2 { margin-top: 12px; font-size: clamp(1.35rem, 7vw, 2rem); }
   .tap-hint { margin-top: 12px; }
+  .prompt-title-row .speak-button { margin-top: 11px; }
+  .answer-title-row { gap: 10px; }
+  .answer-title-row .speak-button { margin-top: 20px; }
   .image-frame { min-height: 176px; }
   .image-frame img { max-height: 210px; object-fit: contain; }
   .answer-content { padding: 35px 25px; }
@@ -373,5 +512,5 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flashcard, .progress-track span, .nav-button, .flip-button { transition: none; }
+  .flashcard, .progress-track span, .nav-button, .flip-button, .speak-button { transition: none; }
 }
